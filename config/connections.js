@@ -18,7 +18,7 @@
  * For more information on configuration, check out:
  * http://sailsjs.org/#!/documentation/reference/sails.config/sails.config.connections.html
  */
-
+var local = require('./local');
 module.exports.connections = {
 
   /***************************************************************************
@@ -56,14 +56,14 @@ module.exports.connections = {
   * Run: npm install sails-mongo                                             *
   *                                                                          *
   ***************************************************************************/
-  // someMongodbServer: {
-  //   adapter: 'sails-mongo',
-  //   host: 'localhost',
-  //   port: 27017,
-  //   user: 'username', //optional
-  //   password: 'password', //optional
-  //   database: 'your_mongo_db_name_here' //optional
-  // },
+  someMongodbServer: {
+    adapter: "sails-mongo",
+    host: local.conectionDataBase.host,
+    port: local.conectionDataBase.port,
+    user: local.conectionDataBase.user, //optional
+    password: local.conectionDataBase.password, //optional
+    database: local.conectionDataBase.database //optional
+  },
 
   /***************************************************************************
   *                                                                          *
