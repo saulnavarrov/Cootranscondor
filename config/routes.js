@@ -32,9 +32,14 @@ module.exports.routes = {
   *                                                                          *
   ***************************************************************************/
 
-  '/': {
-    view: 'homepage'
-  }
+  'get /': {controller: 'FrontPages', action: 'dashboard'},
+  'get /history': {controller: 'FrontPages', action: 'history'},
+  'get /logs': {controller: 'FrontPages', action: 'logs'},
+  'get /permises': {controller: 'FrontPages', action: 'permises'},
+  'get /taxis': {controller: 'FrontPages', action: 'taxis'},
+  'get /zonas': {controller: 'FrontPages', action: 'zonas'},
+  'get /users': {controller: 'FrontPages', action: 'users'},
+  'get /login': {controller: 'FrontPages', action: 'login'},
 
   /***************************************************************************
   *                                                                          *
