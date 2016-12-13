@@ -1,0 +1,13 @@
+{
+  "name": "cootranscondor",
+  "version": "0.0.1",
+  "description": "Servidor online para control de zonas de taxis en apartado",
+  "main": "app.js",
+  "authors": [
+    "SaulNavarrov <sinavarrov@gmail.com>"
+  ],
+  "license": "MIT",
+  "dependencies": {
+    "bootstrap": "^3.3.7"
+  }
+}
