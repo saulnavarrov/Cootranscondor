@@ -1,8 +1,8 @@
 {
   "name": "cootranscondor",
   "private": true,
-  "version": "0.0.0",
-  "description": "a Sails application",
+  "version": "0.0.1",
+  "description": "Aplicacion de control de zonas de una empresa de taxis en Colombia",
   "keywords": [],
   "dependencies": {
     "ejs": "2.3.4",
@@ -25,13 +25,14 @@
   },
   "scripts": {
     "debug": "node debug app.js",
-    "start": "node app.js"
+    "start": "nodemon app.js"
   },
   "main": "app.js",
   "repository": {
     "type": "git",
-    "url": "git://github.com/anonymous node/sails user/cootranscondor.git"
+    "url": "git@github.com:saulnavarrov/Cootranscondor.git"
   },
-  "author": "anonymous node/sails user",
-  "license": ""
+  "author": "SaulNavarrov <sinavarrov@gmail.com>",
+  "license": "MIT",
+  "devDependencies": {}
 }
