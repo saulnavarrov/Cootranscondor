@@ -34,13 +34,13 @@ module.exports.routes = {
 
   'get /': {controller: 'FrontPages', action: 'dashboard'},
   'get /history': {controller: 'FrontPages', action: 'history'},
-  'get /logs': {controller: 'FrontPages', action: 'logs'},
   'get /permisos': {controller: 'FrontPages', action: 'permises'},
   'get /taxis': {controller: 'FrontPages', action: 'taxis'},
   'get /zonas': {controller: 'FrontPages', action: 'zonas'},
-  'get /users': {controller: 'FrontPages', action: 'users'},
   'get /login': {controller: 'FrontPages', action: 'login'},
   'get /profile': {controller: 'FrontPages', action: 'profile'},
+  'get /ajustes/users': {controller: 'FrontPages', action: 'users'},
+  'get /ajustes/logs': {controller: 'FrontPages', action: 'logs'},
   /***************************************************************************
   *                                                                          *
   * Custom routes here...                                                    *
