@@ -6,9 +6,36 @@
  */
 
 module.exports = {
-
+  schema: true,
   attributes: {
-
+    code: {
+      type: 'string',
+    },
+    status: {
+      type: 'string',
+      maxLength: 64
+    },
+    message: {
+      type: 'string',
+      maxLength: 255
+    },
+    description: {
+      type: 'string',
+      maxLength: 1024
+    },
+    controller: {
+      type: 'string',
+      required: true,
+      maxLength: 128
+    },
+    funtion: {
+      type: 'string',
+      required: true,
+      maxLength: 128
+    },
+    user: {
+      type: 'string',
+      maxLength: 64
+    },
   }
 };
-
