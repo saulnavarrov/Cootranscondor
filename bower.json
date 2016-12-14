@@ -8,6 +8,8 @@
   ],
   "license": "MIT",
   "dependencies": {
-    "bootstrap": "^3.3.7"
+    "bootstrap": "^3.3.7",
+    "bootstrap-material-design": "^4.0.2",
+    "jquery": "^3.1.1"
   }
 }
