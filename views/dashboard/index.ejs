@@ -1,112 +1,30 @@
 <div class="wrapper">
 
-  <!-- Main Header -->
-  <%- partial ('../partials/header') %>
-  <!-- Left side column. contains the logo and sidebar -->
-  <%- partial ('../partials/main-sidebar') %>
+  <%- partial ('../partials/header') %> <!-- Main Header -->
+  <%- partial ('../partials/main-sidebar') %> <!-- Left side column. contains the logo and sidebar -->
 
-  <!-- Content Wrapper. Contains page content -->
-  <div class="content-wrapper">
-    <!-- Content Header (Page header) -->
-    <section class="content-header">
-      <h1>
-        DashBoard
-        <small>Control de Taxis en Zonas</small>
-      </h1>
+  <div class="content-wrapper"> <!-- Content Wrapper. Contains page content -->
+
+    <section class="content-header"> <!-- Content Header (Page header) -->
+      <h1>DashBoard <small>Control de Taxis en Zonas</small></h1>
       <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> Level</a></li>
         <li class="active">dashboard</li>
       </ol>
-    </section>
+    </section> <!-- /. Content Header (Page header) -->
 
-    <!-- Main content -->
-    <section class="content">
+    <section class="content"> <!-- Main content -->
 
       <!-- Your Page Content Here -->
       <h1>aqui vendra todo mi contenido</h1>
 
-      <h1 class="header">Dialog</h1>
-
-      <h2>Simple Dialog</h2>
-      <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#simple-dialog">Open dialog</button>
-
-      <h2>Dialog with header and footer</h2>
-      <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#complete-dialog">Open dialog</button>
-      <!-- dialog samples are at the end of the body to avoid z-index conflicts -->
 
 
-      <!-- Button trigger modal -->
-      <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
-        Launch demo modal
-      </button>
+    </section> <!-- /.content -->
+  </div> <!-- /.content-wrapper -->
 
-    </section>
-    <!-- /.content -->
-  </div>
-  <!-- /.content-wrapper -->
-
-  <!-- Main Footer -->
-  <%- partial ('../partials/footer') %>
-
-  <!-- Control Sidebar -->
-  <%- partial ('../partials/control-sidebar') %>
-  <!-- /.control-sidebar -->
+  <%- partial ('../partials/footer') %> <!-- Main Footer -->
+  <%- partial ('../partials/control-sidebar') %> <!-- Control Sidebar -->
 
 </div>
 
-<div id="simple-dialog" class="modal fade" tabindex="-1" style="display: none;">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-body">
-        <p>E dolore commodo, id anim aute sint cupidatat eu est anim tamen ad possumus,
-          legam officia firmissimum. Eram deserunt domesticarum, iis ita praetermissum,
-          nam aliquip quo probant, incididunt et occaecat an nam enim exquisitaque a
-          nescius velit admodum, non ad cohaerescant, probant o nulla tempor. Aute aut te
-          quis arbitror ubi ne aliqua consequat aliquip. Ad sunt laborum senserit, de do
-          quem possumus. Sint tractavissent cupidatat aute possumus ita elit ad cupidatat.
-          Arbitror ab fabulas o eu e veniam pariatur. Non voluptate comprehenderit ad nisi
-          id voluptate. Quis distinguantur quibusdam quae mentitum o si minim illum nisi
-          mandaremus.</p>
-      </div>
-    </div>
-  </div>
-</div>
-
-<div id="complete-dialog" class="modal fade" tabindex="-1" style="display: none;">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-        <h4 class="modal-title">Dialog</h4>
-      </div>
-      <div class="modal-body">
-        <p>Fore aut non quem incididunt, varias reprehenderit deserunt quem offendit,          cillum proident ne reprehenderit, quem ad laborum, quo possumus praetermissum,          si ne illustriora, hic appellat coniunctione, do labore aliqua quo probant. In          probant voluptatibus quo mentitum est laboris. Quorum mandaremus graviterque.
-          Mentitum id velit, dolor aut litteris, ea varias illustriora, ita commodo ita          ingeniis, iis nulla appellat incurreret, aut irure amet summis pariatur ita ubi          quis dolore veniam proident, consequat sed ingeniis.</p>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-primary" data-dismiss="modal">Dismiss<div class="ripple-container"><div class="ripple ripple-on ripple-out" style="left: 53.6563px; top: 11px; background-color: rgb(0, 150, 136); transform: scale(10.875);"></div><div class="ripple ripple-on ripple-out" style="left: 36.6563px; top: 18px; background-color: rgb(0, 150, 136); transform: scale(10.875);"></div></div></button>
-      </div>
-    </div>
-  </div>
-</div>
-
-
-
-<!-- Modal -->
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="myModalLabel">Modal title</h4>
-      </div>
-      <div class="modal-body">
-        ...
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
-      </div>
-    </div>
-  </div>
-</div>
