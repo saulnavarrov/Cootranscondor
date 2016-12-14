@@ -47,4 +47,8 @@ module.exports = {
     return res.view('login/index');
   },
 
+  profile: (req, res) => {
+    return res.view('users/profile');
+  },
+
 };
