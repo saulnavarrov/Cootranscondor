@@ -16,12 +16,60 @@
       </ol>
     </section> <!-- /. Content Header (Page header) -->
 
-    <section class="content" style="border: 1px solid #000"> <!-- Main content -->
+    <section class="content" > <!-- Main content -->
 
       <!-- Your Page Content Here -->
-      <h1>aqui vendra todo mi contenido</h1>
+      <div class="box">
+        <div class="box-header">
+          <h3 class="box-title">Tabla de Zonas</h3>
+        </div>
+        <!-- /.box-header -->
+        <div class="box-body">
+          <div id="example1_wrapper" class="dataTables_wrapper form-inline dt-bootstrap">
+            <!-- <div class="row">
+              <div class="col-sm-6">
+                <div class="dataTables_length" id="example1_length">
+                  <label>Show
+                  <select name="example1_length" aria-controls="example1" class="form-control input-sm">
+                    <option value="10">10</option>
+                    <option value="25">25</option>
+                    <option value="50">50</option>
+                    <option value="100">100</option>
+                    </select> entries
+                  </label>
+                </div>
+              </div>
+              <div class="col-sm-6">
+                <div id="example1_filter" class="dataTables_filter">
+                  <label>Search:<input type="search" class="form-control input-sm" placeholder="" aria-controls="example1"></label>
+                </div>
+              </div>
+            </div> -->
+            <div class="row">
+              <div class="col-sm-12">
+                <table id="zonasTaxisList" class="table table-bordered table-striped dataTable" role="grid" aria-describedby="Lista de zonas">
+                  <thead>
+                    <tr role="row">
+                      <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="example" style="width: 65px;">#</th>
+                      <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="example" style="width: 100px;">Activo</th>
+                      <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="example" style="width: 100px;">Numero</th>
+                      <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="example" style="width: 512px;">Nombre</th>
+                      <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="example" style="width: 200px;">Ciudad</th>
+                      <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="example" style="width: 200px;">Horario</th>
+                      <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="example" style="width: 220px;">Acciones</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
 
-      <button type="button" class="btn btn-fab btn-success" data-toggle="tooltip" data-placement="left" title="Añadir Nueva Zona" style="position: absolute;right: 25px;bottom: 75px;">
+
+      <button type="button" class="btn btn-fab btn-success btn-lg" data-toggle="tooltip" data-placement="left" title="Añadir Nueva Zona" style="position: absolute;right: 25px;bottom: 75px;border-radius: 50%;">
         <i class="fa fa-plus"></i>
         <div class="add-zonas"></div>
       </button>
