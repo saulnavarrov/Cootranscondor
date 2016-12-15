@@ -17,6 +17,11 @@ module.exports = {
     return res.view('history/index');
   },
 
+  // Layout View Controller
+  querys: (req, res) => {
+    return res.view('querys/index');
+  },
+
   // Layouts View controller
   logs: (req, res) => {
     return res.view('logs/index');

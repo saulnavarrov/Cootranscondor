@@ -34,6 +34,7 @@ module.exports.routes = {
 
   'get /': {controller: 'FrontPages', action: 'dashboard'},
   'get /history': {controller: 'FrontPages', action: 'history'},
+  'get /consultas': {controller: 'FrontPages', action: 'querys'},
   'get /permisos': {controller: 'FrontPages', action: 'permises'},
   'get /taxis': {controller: 'FrontPages', action: 'taxis'},
   'get /zonas': {controller: 'FrontPages', action: 'zonas'},
