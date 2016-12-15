@@ -6,9 +6,26 @@
  */
 
 module.exports = {
-
+  schema: true,
   attributes: {
-
+    number:{
+      type: 'Integer',
+      maxLength: 4,
+      unique: true,
+    },
+    placa:{
+      type: 'String',
+      maxLength: 7,
+      unique: true
+    },
+    active:{
+      type: 'Boolean',
+      defaultTo: true,
+    },
+    imagen:{
+      type: 'String',
+      maxLength: 254,
+    },
   }
 };
 
