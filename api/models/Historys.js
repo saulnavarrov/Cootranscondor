@@ -9,6 +9,20 @@ module.exports = {
   schema: true,
   attributes: {
 
+    /*
+
+    zonaId: objectId
+    taxiId: objectId
+    InZona: Boolean
+    Fecha: Date:
+    horaEntrada: Date
+    HoraSalida: Date
+    salidasExternas: String
+    anotaciones: String
+    despachadorId:
+    coleado: Boolean
+     */
+
   }
 };
 

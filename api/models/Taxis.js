@@ -18,6 +18,22 @@ module.exports = {
       maxLength: 7,
       unique: true
     },
+    ciudad: {
+      type: "String",
+      maxLength: 64,
+    },
+    turno: {
+      type: "Boolean",
+      defaultTo: true,
+      // true, trabaja doble turno
+      // false, trabaja medio turno
+    },
+    horario:{
+      type: "Boolean",
+      defaultTo: true,
+      // true, Dia
+      // false, Noche
+    },
     active:{
       type: 'Boolean',
       defaultTo: true,
