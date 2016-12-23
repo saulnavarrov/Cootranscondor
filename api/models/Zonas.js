@@ -81,6 +81,9 @@ module.exports = {
       type: 'Integer',
       defaultTo: 0,
     },
+    hist: {
+      model: 'historys'
+    }
   }
 };
 

@@ -9,18 +9,40 @@ module.exports = {
   schema: true,
   attributes: {
 
-    /*
 
-    zonaId: objectId
-    taxiId: objectId
-    InZona: Boolean
+    zonaId: {
+      collection: 'zonas',
+      via: 'his'
+    },
+
+    taxiId: {
+      collection: 'taxis',
+      via: 'hist'
+    },
+
+    InZona: {
+      type: 'boolean',
+      defaultTo: true,
+      required: true
+    },
+    coleado: {
+      type: 'boolean',
+      defaultTo: false,
+    },
+
+    anotaciones: {
+      type: 'String',
+      defaultTo: false,
+      maxLength: 1024
+    },
+    despachadorId: {
+      model: 'users'
+    },
+    /*
     Fecha: Date:
     horaEntrada: Date
     HoraSalida: Date
     salidasExternas: String
-    anotaciones: String
-    despachadorId:
-    coleado: Boolean
      */
 
   }

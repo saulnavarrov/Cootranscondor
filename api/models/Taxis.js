@@ -42,6 +42,9 @@ module.exports = {
       type: 'String',
       maxLength: 254,
     },
+    hist: {
+      model: 'historys'
+    }
   }
 };
 

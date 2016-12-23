@@ -47,6 +47,7 @@ module.exports = {
       type: 'Boolean',
       defaultTo: false
     },
+
   }
 };
 
