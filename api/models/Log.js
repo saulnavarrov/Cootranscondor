@@ -34,8 +34,7 @@ module.exports = {
       maxLength: 128
     },
     user: {
-      type: 'string',
-      maxLength: 64
+      model: 'users'
     },
   }
 };
