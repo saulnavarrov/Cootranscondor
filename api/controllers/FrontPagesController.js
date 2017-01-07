@@ -42,6 +42,10 @@ module.exports = {
     return res.view('zonas/index');
   },
 
+  notify: (req, res) => {
+    return res.view('notify/index');
+  },
+
   // Layouts View controller
   users: (req, res) => {
     return res.view('users/index');
