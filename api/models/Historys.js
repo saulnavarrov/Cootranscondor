@@ -12,7 +12,7 @@ module.exports = {
 
     zonaId: {
       collection: 'zonas',
-      via: 'his'
+      via: 'hist'
     },
 
     taxiId: {
