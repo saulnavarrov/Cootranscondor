@@ -35,5 +35,7 @@
   },
   "author": "SaulNavarrov <sinavarrov@gmail.com>",
   "license": "MIT",
-  "devDependencies": {}
+  "devDependencies": {
+    "grunt-contrib-stylus": "^1.2.0"
+  }
 }
