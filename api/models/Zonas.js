@@ -11,36 +11,39 @@ var hours = ['0:00', '1:00', '2:00', '3:00', '4:00', '5:00', '6:00', '7:00', '8:
 module.exports = {
   schema: true,
   attributes: {
+
     "numberZona": {
       type: 'Integer',
       unique: true,
       maxLength: 6,
       required: true,
     },
+
     "nameZona": {
       type: 'String',
       maxLength: 64,
       required: true,
     },
+
     "latitudZona": {
       type: 'Float',
       minLength: 1,
       maxLength: 64,
     },
+
     "longitudZona": {
       type: 'Float',
       minLength: 1,
       maxLength: 64,
     },
+
     "activeZona": {
-      type: 'Boolean',
+      type: 'String',
+      enum: ['active','disabled','deleted'],
       defaultsTo: true,
       required: true,
     },
-    "imagenZona": {
-      type: 'String',
-      maxLength: 254,
-    },
+
    "horariZona": {
       type: 'Boolean',
       defaultsTo: false,
@@ -49,11 +52,14 @@ module.exports = {
     "hourStart": {
       type: 'String',
       enum: hours,
+      maxLength: 5,
       defaultsTo: '12:00',
     },
+
     "hourEnd": {
       type: 'String',
       enum: hours,
+      maxLength: 5,
       defaultsTo: '12:00',
     },
 
@@ -62,10 +68,17 @@ module.exports = {
       enum: ['Apartadó', 'Carepa'],
       required: true,
     },
+
     "version": {
       type: 'Integer',
       defaultsTo: 0,
     },
+
+    "imagenZona": {
+      type: 'String',
+      maxLength: 254,
+    },
+
     hist: {
       model: 'historys'
     },
