@@ -48,13 +48,13 @@
     <meta name="theme-color" content="#ffffff">
     <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:300,400,500,700" type="text/css">
     <!--STYLES-->
-    <link rel="stylesheet" href="/styles/aBootstrap-a.min.css">
+    <link rel="stylesheet" href="/styles/aBootstrap.min.css">
     <link rel="stylesheet" href="/styles/afont-awesome.min.css">
     <link rel="stylesheet" href="/styles/aionicons.min.css">
+    <link rel="stylesheet" href="/styles/badminLTE.min.css">
     <link rel="stylesheet" href="/styles/importer.css">
     <link rel="stylesheet" href="/styles/skins/skin-blue.css">
     <link rel="stylesheet" href="/styles/styl.css">
-    <link rel="stylesheet" href="/styles/zAdminLTE.min.css">
     <!--STYLES END-->
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -66,64 +66,34 @@
   </head>
 
   <body class="hold-transition skin-blue sidebar-mini">
+
+    <!-- Preload -->
+    <div class="preloadingHtml">
+      <i class="fa fa-circle-o-notch fa-spin fa-3x fa-fw" style="color: white;"></i>
+      <span style="color: white;">Loading...</span>
+    </div>
+
+
+    <!-- Contenidos -->
     <%- body %>
 
-
-
-
-    <!--
-        Client-side Templates
-        ========================
-
-        HTML templates are important prerequisites of modern, rich client applications.
-        To work their magic, frameworks like Backbone, Angular, Ember, and Knockout require
-        that you load these templates client-side.
-
-        By default, your Gruntfile is configured to automatically load and precompile
-        client-side JST templates in your `assets/templates` folder, then
-        include them here automatically (between TEMPLATES and TEMPLATES END).
-
-        To customize this behavior to fit your needs, just edit `tasks/pipeline.js`.
-        For example, here are a few things you could do:
-
-            + Import templates from other directories
-            + Use a different template engine (handlebars, jade, dust, etc.)
-            + Internationalize your client-side templates using a server-side
-              stringfile before they're served.
-    -->
 
     <!--TEMPLATES-->
     
     <!--TEMPLATES END-->
 
 
-    <!--
-
-      Client-side Javascript
-      ========================
-
-      You can always bring in JS files manually with `script` tags, or asynchronously
-      on the client using a solution like AMD (RequireJS).  Or, if you like, you can
-      take advantage of Sails' conventional asset pipeline (boilerplate Gruntfile).
-
-      By default, files in your `assets/js` folder are included here
-      automatically (between SCRIPTS and SCRIPTS END).  Both JavaScript (.js) and
-      CoffeeScript (.coffee) are supported. In production, your scripts will be minified
-      and concatenated into a single file.
-
-      To customize any part of the built-in behavior, just edit `tasks/pipeline.js`.
-      For example, here are a few things you could do:
-
-          + Change the order of your scripts
-          + Import scripts from other directories
-          + Use a different preprocessor, like TypeScript
-
-    -->
-
     <!--SCRIPTS-->
     <script src="/js/dependencies/sails.io.js"></script>
     <script src="/js/librarys.js"></script>
     <script src="/js/scripts.js"></script>
     <!--SCRIPTS END-->
+    <script type="text/javascript">
+
+      setTimeout(function(){
+          $('.preloadingHtml').fadeOut('slow', function () { $(this).remove(); });
+      }, 3000);
+
+    </script>
   </body>
 </html>
