@@ -12,15 +12,144 @@
       <div class="modal-body">
 
 
-
-
-          <input type="hidden" name="_csrf" id="_csrf" value="<%= _csrf %>" />
-
-          <div class="row col-md-12">
-            <p>* Campos Obligatorios</p>
+        <section class="row">
+          <div class="col-md-3">
+            <div class="form-group">
+              <label for="aNumberZona">* Numero Zona</label>
+              <input type="number" placeholder="Numero Zona" maxLength="3" class="form-control" id="aNumberZona" name="aNumberZona">
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <label for="aZonaName">* Nombre de la Zona</label>
+              <input type="text" placeholder="Nombre de la Zona" maxLength="3" class="form-control" id="aZonaName" name="aZonaName">
+            </div>
           </div>
 
-          <br>
+          <div class="col-md-3">
+            <div class="form-group">
+              <label>* Zona Funcional (Activar)</label>
+              <select class="form-control" id="aActiveZona" name="aActiveZona" required>
+                <option value="active" selected>Activa</option>
+                <option value="disabled">No Activa</option>
+              </select>
+            </div>
+          </div>
+        </section>
+
+        <hr>
+
+        <section class="row">
+          <div class="col-md-3">
+            <div class="form-group">
+              <label>Activar Horario</label>
+              <select class="form-control" id="aActiveZona" name="aActiveZona" required>
+                <option value="true" >Activar Horario</option>
+                <option value="false" selected>Horario No Activo</option>
+              </select>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="form-group">
+              <label>Hora Inicio</label>
+              <select class="form-control" id="aHoraStartZ" name="aHoraStartZ" disabled>
+                <option value="0:00">12:00 am</option> <option value="0:30">12:30 am</option>
+                <option value="1:00">01:00 am</option> <option value="1:30">01:30 am</option>
+                <option value="2:00">02:00 am</option> <option value="2:30">02:30 am</option>
+                <option value="3:00">03:00 am</option> <option value="3:30">03:30 am</option>
+                <option value="4:00">04:00 am</option> <option value="4:30">04:30 am</option>
+                <option value="5:00">05:00 am</option> <option value="5:30">05:30 am</option>
+                <option value="6:00">06:00 am</option> <option value="6:30">06:30 am</option>
+                <option value="7:00">07:00 am</option> <option value="7:30">07:30 am</option>
+                <option value="8:00">08:00 am</option> <option value="8:30">08:30 am</option>
+                <option value="9:00">09:00 am</option> <option value="9:30">09:30 am</option>
+                <option value="10:00">10:00 am</option> <option value="10:30">10:30 am</option>
+                <option value="11:00">11:00 am</option> <option value="11:30">11:30 am</option>
+                <option value="12:00">12:00 pm</option> <option value="12:30">12:30 pm</option>
+                <option value="13:00">01:00 pm</option> <option value="13:30">01:30 pm</option>
+                <option value="14:00">02:00 pm</option> <option value="14:30">02:30 pm</option>
+                <option value="15:00">03:00 pm</option> <option value="15:30">03:30 pm</option>
+                <option value="16:00">04:00 pm</option> <option value="16:30">04:30 pm</option>
+                <option value="17:00">05:00 pm</option> <option value="17:30">05:30 pm</option>
+                <option value="18:00">06:00 pm</option> <option value="18:30">06:30 pm</option>
+                <option value="19:00">07:00 pm</option> <option value="19:30">07:30 pm</option>
+                <option value="20:00">08:00 pm</option> <option value="20:30">08:30 pm</option>
+                <option value="21:00">09:00 pm</option> <option value="21:30">09:30 pm</option>
+                <option value="22:00">10:00 pm</option> <option value="22:30">10:30 pm</option>
+                <option value="23:00">11:00 pm</option> <option value="23:30">11:30 pm</option>
+              </select>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="form-group">
+              <label>Hora que finaliza</label>
+              <select class="form-control" id="aHoraEndZ" name="aHoraEndZ" disabled>
+                <option value="0:00">12:00 am</option> <option value="0:30">12:30 am</option>
+                <option value="1:00">01:00 am</option> <option value="1:30">01:30 am</option>
+                <option value="2:00">02:00 am</option> <option value="2:30">02:30 am</option>
+                <option value="3:00">03:00 am</option> <option value="3:30">03:30 am</option>
+                <option value="4:00">04:00 am</option> <option value="4:30">04:30 am</option>
+                <option value="5:00">05:00 am</option> <option value="5:30">05:30 am</option>
+                <option value="6:00">06:00 am</option> <option value="6:30">06:30 am</option>
+                <option value="7:00">07:00 am</option> <option value="7:30">07:30 am</option>
+                <option value="8:00">08:00 am</option> <option value="8:30">08:30 am</option>
+                <option value="9:00">09:00 am</option> <option value="9:30">09:30 am</option>
+                <option value="10:00">10:00 am</option> <option value="10:30">10:30 am</option>
+                <option value="11:00">11:00 am</option> <option value="11:30">11:30 am</option>
+                <option value="12:00">12:00 pm</option> <option value="12:30">12:30 pm</option>
+                <option value="13:00">01:00 pm</option> <option value="13:30">01:30 pm</option>
+                <option value="14:00">02:00 pm</option> <option value="14:30">02:30 pm</option>
+                <option value="15:00">03:00 pm</option> <option value="15:30">03:30 pm</option>
+                <option value="16:00">04:00 pm</option> <option value="16:30">04:30 pm</option>
+                <option value="17:00">05:00 pm</option> <option value="17:30">05:30 pm</option>
+                <option value="18:00">06:00 pm</option> <option value="18:30">06:30 pm</option>
+                <option value="19:00">07:00 pm</option> <option value="19:30">07:30 pm</option>
+                <option value="20:00">08:00 pm</option> <option value="20:30">08:30 pm</option>
+                <option value="21:00">09:00 pm</option> <option value="21:30">09:30 pm</option>
+                <option value="22:00">10:00 pm</option> <option value="22:30">10:30 pm</option>
+                <option value="23:00">11:00 pm</option> <option value="23:30">11:30 pm</option>
+              </select>
+            </div>
+          </div>
+
+        </section>
+
+        <hr>
+
+        <section class="row">
+          <div class="col-md-3">
+            <div class="form-group">
+              <label>* Cuidad</label>
+              <select class="form-control" id="aCiudadZona" name="aCiudadZona" required>
+                <option value="Apartadó" selected>Apartadó</option>
+                <option value="Carepa">Carepa</option>
+              </select>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="form-group">
+              <label>Latitud</label>
+              <input type="text" class="form-control" id="aLatZona" name="aLatZona" placeholder="Latitud" disabled>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="form-group">
+              <label>Longitud</label>
+              <input type="text" class="form-control" id="aLonZona" name="aLonZona" placeholder="Longitud" disabled>
+            </div>
+          </div>
+        </section>
+
+
+
+        <input type="hidden" name="aVersZona" id="aVersZona" value="0" />
+         <input type="hidden" name="_csrf" id="_csrf" value="<%= _csrf %>" />
+
+        <div class="row col-md-12">
+          <p>* Campos Obligatorios</p>
+        </div>
+
+        <br>
       </div>
 
       <!-- Footer del modal -->
