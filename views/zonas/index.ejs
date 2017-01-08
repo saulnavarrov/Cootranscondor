@@ -6,17 +6,14 @@
   <div class="content-wrapper"> <!-- Content Wrapper. Contains page content -->
 
     <section class="content-header"> <!-- Content Header (Page header) -->
-      <h1>
-        Zonas
-        <small>Datos de las Zonas de acopio</small>
-      </h1>
+      <h1>Zonas <small>Datos de las Zonas de acopio</small></h1>
       <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> Level</a></li>
         <li class="active">Zonas</li>
       </ol>
     </section> <!-- /. Content Header (Page header) -->
 
-    <section class="content" style="background-color: #FFF; margin-top: 25px; min-height: 200px;"> <!-- Main content -->
+    <section class="content contentPage"> <!-- Main content -->
 
       <!-- Your Page Content Here -->
       <!-- Error page server list -->
@@ -71,7 +68,7 @@
         </div>
         <div class="col-xs-6">
           <div class="pull-right pagination">
-            <label style="display: inline-flex;line-height: 30px;">Ver&nbsp;&nbsp;
+            <label class="itemWhitPage">Ver&nbsp;&nbsp;
               <select id="limitItensPage" class="form-control input-sm" id="selectsResultItems">
                 <option value="10" selected>&nbsp;10&nbsp;</option>
                 <option value="20">&nbsp;20&nbsp;</option>
@@ -92,8 +89,11 @@
         </div>
       </section>
 
+      <!-- Partiales  -->
+      <%- partial ('p/add') %>
 
-      <button type="button" class="btn btn-fab btn-success btn-lg" data-toggle="tooltip"  data-target="#modalAddForm"data-placement="left" title="Añadir Nueva Zona" style="position: absolute;right: 25px;bottom: 75px;border-radius: 50%;">
+      <!-- Boton Float -->
+      <button type="button" class="btn btn-fab btn-success btn-lg btn-float" data-toggle="modal" data-target="#modalAddForm" data-placement="left" title="Agregar Nueva Zona">
         <i class="fa fa-plus"></i>
         <div class="add"></div>
       </button>
