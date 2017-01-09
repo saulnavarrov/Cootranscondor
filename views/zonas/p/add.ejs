@@ -16,21 +16,22 @@
           <div class="col-md-3">
             <div class="form-group">
               <label for="aNumberZona">* Numero Zona</label>
-              <input type="number" placeholder="Numero Zona" maxLength="3" class="form-control" id="aNumberZona" name="aNumberZona">
+              <input type="number" placeholder="Numero Zona" minlength="3" maxLength="32" class="form-control" id="aNumberZona" name="aNumberZona" required>
             </div>
           </div>
           <div class="col-md-6">
             <div class="form-group">
               <label for="aZonaName">* Nombre de la Zona</label>
-              <input type="text" placeholder="Nombre de la Zona" maxLength="3" class="form-control" id="aZonaName" name="aZonaName">
+              <input type="text" placeholder="Nombre de la Zona" minlength="3" maxLength="32" class="form-control" id="aZonaName" name="aZonaName" required>
             </div>
           </div>
 
           <div class="col-md-3">
             <div class="form-group">
-              <label>* Zona Funcional (Activar)</label>
+              <label>* Zona Activa</label>
               <select class="form-control" id="aActiveZona" name="aActiveZona" required>
-                <option value="active" selected>Activa</option>
+                <option value="" selected disabled>Seleccionar</option>
+                <option value="active">Activa</option>
                 <option value="disabled">No Activa</option>
               </select>
             </div>
@@ -42,10 +43,11 @@
         <section class="row">
           <div class="col-md-3">
             <div class="form-group">
-              <label>Activar Horario</label>
-              <select class="form-control" id="aActiveZona" name="aActiveZona" required>
-                <option value="true" >Activar Horario</option>
-                <option value="false" selected>Horario No Activo</option>
+              <label>Activar horario</label>
+              <select class="form-control" id="aActiveHourZona" name="aActiveHourZona" required>
+                <option value="" selected disabled>Seleccionar</option>
+                <option value="false">Horario No Activo</option>
+                <option value="true">Activar Horario</option>
               </select>
             </div>
           </div>
@@ -53,6 +55,7 @@
             <div class="form-group">
               <label>Hora Inicio</label>
               <select class="form-control" id="aHoraStartZ" name="aHoraStartZ" disabled>
+                <option value="" selected disabled>Seleccionar</option>
                 <option value="0:00">12:00 am</option> <option value="0:30">12:30 am</option>
                 <option value="1:00">01:00 am</option> <option value="1:30">01:30 am</option>
                 <option value="2:00">02:00 am</option> <option value="2:30">02:30 am</option>
@@ -84,6 +87,7 @@
             <div class="form-group">
               <label>Hora que finaliza</label>
               <select class="form-control" id="aHoraEndZ" name="aHoraEndZ" disabled>
+                <option value="" selected disabled>Seleccionar</option>
                 <option value="0:00">12:00 am</option> <option value="0:30">12:30 am</option>
                 <option value="1:00">01:00 am</option> <option value="1:30">01:30 am</option>
                 <option value="2:00">02:00 am</option> <option value="2:30">02:30 am</option>
@@ -121,7 +125,8 @@
             <div class="form-group">
               <label>* Cuidad</label>
               <select class="form-control" id="aCiudadZona" name="aCiudadZona" required>
-                <option value="Apartadó" selected>Apartadó</option>
+                <option value="" selected disabled>Seleccionar</option>
+                <option value="Apartadó">Apartadó</option>
                 <option value="Carepa">Carepa</option>
               </select>
             </div>

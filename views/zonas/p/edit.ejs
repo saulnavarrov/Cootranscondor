@@ -31,7 +31,8 @@
             <div class="form-group">
               <label>* Zona Funcional (Activar)</label>
               <select class="form-control" id="eActiveZona" name="eActiveZona" required>
-                <option value="active" selected>Activa</option>
+                <option value="" disabled>Seleccionar</option>
+                <option value="active">Activa</option>
                 <option value="disabled">No Activa</option>
               </select>
             </div>
@@ -44,9 +45,10 @@
           <div class="col-md-3">
             <div class="form-group">
               <label>Activar Horario</label>
-              <select class="form-control" id="eActiveZona" name="eActiveZona" required>
+              <select class="form-control" id="eActiveHourZona" name="eActiveHourZona">
+                <option value="" disabled>Seleccionar</option>
+                <option value="false">Horario No Activo</option>
                 <option value="true" >Activar Horario</option>
-                <option value="false" selected>Horario No Activo</option>
               </select>
             </div>
           </div>
@@ -54,6 +56,7 @@
             <div class="form-group">
               <label>Hora Inicio</label>
               <select class="form-control" id="eHoraStartZ" name="eHoraStartZ" disabled>
+                <option value="" disabled>Seleccionar</option>
                 <option value="0:00">12:00 am</option> <option value="0:30">12:30 am</option>
                 <option value="1:00">01:00 am</option> <option value="1:30">01:30 am</option>
                 <option value="2:00">02:00 am</option> <option value="2:30">02:30 am</option>
@@ -85,6 +88,7 @@
             <div class="form-group">
               <label>Hora que finaliza</label>
               <select class="form-control" id="eHoraEndZ" name="eHoraEndZ" disabled>
+                <option value="" disabled>Seleccionar</option>
                 <option value="0:00">12:00 am</option> <option value="0:30">12:30 am</option>
                 <option value="1:00">01:00 am</option> <option value="1:30">01:30 am</option>
                 <option value="2:00">02:00 am</option> <option value="2:30">02:30 am</option>
@@ -122,6 +126,7 @@
             <div class="form-group">
               <label>* Cuidad</label>
               <select class="form-control" id="eCiudadZona" name="eCiudadZona" required>
+                <option value="" disabled>Seleccionar</option>
                 <option value="Apartadó" selected>Apartadó</option>
                 <option value="Carepa">Carepa</option>
               </select>
