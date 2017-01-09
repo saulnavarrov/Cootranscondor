@@ -79,7 +79,7 @@ var Zonas = {
           _this.tableListTbody.html(''); //Clear Table
           // Imprimiendo resultados.
           d.forEach((it, ind) => {
-            _this.printListResultZ(it, ind);
+            _this.printListResultZ(it, ((skip*limt)+ind));
           });
           _this.paginationList(limt, skip)
         }
@@ -104,8 +104,8 @@ var Zonas = {
       <td>${it.numberZona}</td>
       <td>${it.nameZona}</td>
       <td>${it.cityZona}</td>
-      <td class="hidden-xs">${it.latitudZona}</td>
-      <td class="hidden-xs">${it.longitudZona}</td>
+      <td class="hidden-xs">${it.latitudZona === null ? '-':it.latitudZona}</td>
+      <td class="hidden-xs">${it.longitudZona === null ? '-':it.longitudZona}</td>
       <td class="hidden-xs">${it.horariZona ? it.hourStart : ''} - ${it.horariZona ? it.hourEnd : ''}</td>
       <td>
         <!-- Single button -->
@@ -138,13 +138,14 @@ var Zonas = {
   paginationList: (l,p) => {
     let _this = Zonas,
         pag = p || 0, // Numero de la pagina activa
-        options = {url:'zonas',lim:0,ski:0};
+        options = {url:'zonas', lim: 0, ski: 0};
 
     // Peticion de cantidad.
     Crud.rea(options, (e,d,r)=>{
       if(e){}
       else{
         cantZo = Math.ceil(d.length / l); // Cantidad paginas <li>
+
         $('#pagNum').html(''); // Clear content paginacion
         $('#pagNum').append(`<li class="paginate_button previous disabled" id="prevZon"><a href="#" >Previous</a></li>`); // Preview List
 
@@ -155,12 +156,15 @@ var Zonas = {
 
         $('#pagNum').append(`<li class="paginate_button next disabled" id="nextZon"><a href="#">Next</a></li>`); // Next List
 
-
         // activa o desactiva prev o next
         _this.prevNextPagZona(pag);
       }
     });
   },
+
+
+  //error al crear la paginacion, no esta paginando corectamente eso quiere decir que cuando deberia paginar ocon 10 items deberia aparecer 2 de paginacion.
+
 
   /**
    * @description :: Cambia la cantidad de resultados
@@ -169,7 +173,7 @@ var Zonas = {
   limitPage: () => {
     let _this = Zonas,
         l = $('#limitItemsPag').val(); // litite de resultado por paginas
-    _this.getListZ(l); // Cambia la cantidad de resultados de la lista
+    _this.getListZ(Number(l), null, null, null, null, null); // Cambia la cantidad de resultados de la lista
   },
 
   /**
@@ -238,12 +242,92 @@ var Zonas = {
   }
 }
 
-$(document).on('change','#aActiveZona', e =>{
+// Activa los selectorez de horarios
+$(document).on('change','#aActiveHourZona', e =>{
   e.preventDefault();
-  let buttonActive = $('#aActiveZona');
+  let buttonActive = $('#aActiveHourZona').val();
 
-  console.log(buttonActive);
+  if(buttonActive !== 'false'){
+    $('#aHoraStartZ').removeAttr('disabled');
+    $('#aHoraEndZ').removeAttr('disabled');
+  }else{
+    $('#aHoraStartZ').attr({'disabled':''});
+    $('#aHoraEndZ').attr({'disabled':''});
+  }
+});
 
+/**
+ * Agregar nueva zona a la base de datos
+ */
+$(document).on('click', '#addNewZona', e => {
+  e.preventDefault();
+
+  let zend = 0;
+      formVal.text('#aZonaName', r => {zend += r;});
+      formVal.number('#aNumberZona', r => {zend += r;});
+      formVal.text('#aActiveZona', r => {zend += r;});
+      formVal.text('#aActiveHourZona', r => {zend +=r;});
+      formVal.text('#aCiudadZona', r => {zend += r;});
+
+  if(zend){
+    swal('Alerta', 'Por Favor llene los campos en rojo.','warning');
+  }else{
+    let options = {
+      url: 'zonas',
+      tok: $('#_csrf').val(),
+      dat: {
+        "numberZona":       Number($('#aNumberZona').val()),
+        "nameZona":         _.startCase($('#aZonaName').val()),
+        "latitudZona":      parseFloat($('#aLatZona').val()),
+        "longitudZona":     parseFloat($('#aLonZona').val()),
+        "activeZona":       $('#aActiveZona').val(),
+        "horariZona":       $('#aActiveHourZona').val(),
+        "hourStart":        $('#aHoraStartZ').val() || '0:00',
+        "hourEnd":          $('#aHoraEndZ').val() || '1:00',
+        "cityZona":         $('#aCiudadZona').val(),
+        "version":          $('#aVersZona').val(),
+        //"imagenZona":       ${'#'},
+      }
+    }
+
+    Crud.cre(options, (e,d,r) => {
+      console.log(r);
+      if(e){
+        swal('Error', `Se ha presentado un error en el Servidor.\nIntentelo de nuevo, \nSí el error persiste avise a soporte.`,'error');
+      }
+      else if(r.statusCode === 400){
+        swal('Alerta', `Esta Zona ya se encuentra Registrada ${Number($('#aNumberZona').val())}`, 'warning');
+        $('#aNumberZona').css({'border-color': 'red', 'box-shadow': '0px 0px 1px red'});
+      }
+      else if(r.statusCode === 201){
+
+        swal({
+          title: "Zona Agregada Correctamente",
+          text: "Los Datos han sido agregados correctamente.",
+          type: "success",
+          showCancelButton: false,
+          confirmButtonColor: "#5CE27F",
+          confirmButtonText: "Ok",
+          closeOnConfirm: false
+        },() => {
+          // Clear formulario
+          $('#aNumberZona').val('').removeAttr('style');
+          $('#aZonaName').val('').removeAttr('style');
+          $('#aLatZona').val('').removeAttr('style');
+          $('#aLonZona').val('').removeAttr('style');
+          $('#aActiveZona').val('').removeAttr('style');
+          $('#aActiveHourZona').val('').removeAttr('style');
+          $('#aHoraStartZ').val('').removeAttr('style');
+          $('#aHoraEndZ').val('').removeAttr('style');
+          $('#aCiudadZona').val('').removeAttr('style');
+          //$('#aImageZona').val('').removeAttr('style');
+          $('#modalAddForm').modal('hide');
+          swal.close();
+        });
+        Zonas.printListResultZ(d, ($('table tbody tr').length));
+      }
+    });
+  }
 });
 
 /**************************************************************************************************
