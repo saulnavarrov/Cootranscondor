@@ -37,11 +37,11 @@
       <!-- Tabla list -->
       <section class="row" id="tableList" hidden>
         <div class="col-xs-12">
-          <table class="table table-bordered table-responsive table-hover dataTable" id="table">
+          <table class="table table-bordered table-responsive table-hover dataTable text-center">
             <thead>
               <tr role="row">
-                <th style="width: 65px;">#</th>
-                <th class="sorting" style="width: 100px; cursor: pointer;">Activo:</th>
+                <th style="width: 50px;">#</th>
+                <th class="sorting" style="width: 60px; cursor: pointer; justify-content: center">Act:</th>
                 <th class="sorting" style="width: 100px; cursor: pointer;">Numero:</th>
                 <th class="sorting" style="width: 300px; cursor: pointer;">Nombre:</th>
                 <th class="sorting" style="width: 200px; cursor: pointer;">Ciudad:</th>
@@ -64,12 +64,13 @@
       <!-- Paginations list -->
       <section class="row" id="paginations" hidden>
         <div class="col-xs-6">
-          <ul class="pagination" id="paginationNumbers"></ul>
+          <ul class="pagination" id="pagNum"></ul>
         </div>
         <div class="col-xs-6">
           <div class="pull-right pagination">
             <label class="itemWhitPage">Ver&nbsp;&nbsp;
-              <select id="limitItensPage" class="form-control input-sm" id="selectsResultItems">
+              <select id="limitItemsPag" class="form-control input-sm" onchange="Zonas.limitPage()">
+                <option value="1">&nbsp;1&nbsp;</option>
                 <option value="10" selected>&nbsp;10&nbsp;</option>
                 <option value="20">&nbsp;20&nbsp;</option>
                 <option value="50">&nbsp;50&nbsp;</option>
@@ -91,6 +92,8 @@
 
       <!-- Partiales  -->
       <%- partial ('p/add') %>
+      <%- partial ('p/edit') %>
+      <%- partial ('p/see') %>
 
       <!-- Boton Float -->
       <button type="button" class="btn btn-fab btn-success btn-lg btn-float" data-toggle="modal" data-target="#modalAddForm" data-placement="left" title="Agregar Nueva Zona">
