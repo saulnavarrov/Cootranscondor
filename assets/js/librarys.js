@@ -34,25 +34,59 @@ function _init(){"use strict";$.AdminLTE.layout={activate:function(){var a=this;
 var Crud = {
 
   cre: (opt, cb) =>{
-    cb('Crear');
+    let url = opt.url || '',        // url
+        idi = opt.ids || '',        // Ver Uno en concreto
+        hea = opt.hea || {},        // cabezera
+        dat = opt.dat || {},        // Datos
+        tok = opt.tok || '',        // token
+        jwt = opt.jwt || '';        // token usuario
+
+    // Peticion al servidor
+    io.socket.request({
+      'method': 'post',
+      'url': `/api/${url}`,
+      'data': dat,
+      'headers': {
+        'x-csrf-token': tok,
+        'Authorization': 'Bearer ' + jwt,
+        'head': hea,
+      }
+    },(d,r)=>{
+      if(r.statusCode === 500){
+        console.error(r.err);
+        swal('Error', `Se ha presentado un error en el Servidor.\nIntentelo de nuevo, \nSí el error persiste avise a soporte.`,'error');
+        cb(true,d,r);
+      }else{
+        cb(false,d,r);
+      }
+    });
   },
 
   rea: (opt, cb) =>{
-     let ul = opt.url || '',           // Url
-         li = opt.lim || 10,           // Limite de resultados
-         sk = opt.ski || 0,            // Omision de resultados, (se multiplica por limites)
-         sn = opt.sna || 'numberZona', // Se ordenara por Id o el que esoja
-         sa = opt.sad || 'ASC',        // Orden ASC o DESC
-         di = opt.ids || '',           // Ver Uno en concreto
-         ac = opt.act || 'a',     // Ver los que esta activos
-         he = opt.hea || {},           // Enviando Cabezeras
-         tk = opt.tok || '',           // Token
-         jw = opt.jwt || '';           // Token del usuario
+    let ul = opt.url || '',           // Url
+        li = opt.lim || 10,           // Limite de resultados
+        sk = opt.ski || 0,            // Omision de resultados, (se multiplica por limites)
+        sn = opt.sna || 'numberZona', // Se ordenara por Id o el que esoja
+        sa = opt.sad || 'ASC',        // Orden ASC o DESC
+        di = opt.ids || '',           // Ver Uno en concreto
+        ac = opt.act || 'a',     // Ver los que esta activos
+        he = opt.hea || {},           // Enviando Cabezeras
+        tk = opt.tok || '',           // Token
+        jw = opt.jwt || '';           // Token del usuario
+
+    let query = '';
+
+    // Poder Consultar cantidad
+    if(opt.lim === 0){
+      let query = `?where={%22activeZona%22:{%22contains%22:%22${ac}%22}}`;
+    }else{
+      query = `?limit=${li}&skip=${li*sk}&sort=${sn}%20${sa}&where={%22activeZona%22:{%22contains%22:%22${ac}%22}}`;
+    }
 
     // Request al Servidor
     io.socket.request({
       'method': 'get',
-      'url': `/api/${ul}/${di}?limit=${li}&skip=${li*sk}&sort=${sn}%20${sa}&where={%22activeZona%22:{%22contains%22:%22${ac}%22}}`,
+      'url': `/api/${ul}/${di}${query}`,
       'data': {},
       'headers': {
         'x-csrf-token': tk,
@@ -92,10 +126,10 @@ var formVal = {
       // Confirma que el campo no este vacio
       if(inp.val() === '' || inp.val() === null || inp.val() === 0 || /^\s+$/.test(inp.val())){
         inp.css({'border-color': 'red', 'box-shadow': '0px 0px 1px red'});
-        cb(true);
+        cb(1);
       }else{
         inp.css({'border-color': 'green', 'box-shadow': '0px 0px 1px green'});
-        cb(false);
+        cb(0);
       }
     }
   },
@@ -107,13 +141,13 @@ var formVal = {
     if(inp.attr('required') === 'required'){
       if(inp.val() === '' || inp.val() === null || inp.val() === 0 || /^\s+$/.test(inp.val())){
         inp.css({'border-color': 'red', 'box-shadow': '0px 0px 1px red'});
-        cb(true);
+        cb(1);
       }else if(isNaN(inp.val())){
         inp.css({'border-color': 'red', 'box-shadow': '0px 0px 1px red'});
-        cb(true);
+        cb(1);
       }else{
         inp.css({'border-color': 'green', 'box-shadow': '0px 0px 1px green'});
-        cb(false);
+        cb(0);
       }
     }
   }
