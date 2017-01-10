@@ -526,48 +526,60 @@ $(document).on('click', '#saveEditZona', e => {
   }
 });
 
+/**
+ * @description :: Evento para ordenar la tabla
+ * @param  {[type]} e [description]
+ * @return {[type]}   [description]
+ */
 let ot; // orden table
-$(document).on('click', '#tableList thead tr td', e => {
+let tSearch; // cambio de busqueda de la tabla.
+$(document).on('click', '#tableList thead tr th', e => {
   e.preventDefault();
-  console.log(e);
 
   let ski = $('#pagNum li.active').text(),          // Numero de la pagina
       lim = $('#limitItemsPag').val(),              // Valor cantidad items
+      sea = $('input[name=table_search]'),            // Input Search
       itm = e.target.offsetParent.cellIndex,        // Index titulo table donde hace click
       tar = e.target.textContent,                   // Obtiene el valor del titulo
-      adl = ot,// sessionStorage.getItem('ordenTable'),   // contador ASC o DESC
+      adl = ot,                                     // contador ASC o DESC
       sna = '',                                     // valor ASC o DESC
-      the = { "Act:":"activeZona",
-              "Numero:":"numberZona",
-              "Nombre:":"nameZona",
-              "Ciudad:":"cityZona",
-              "Lat:":"latitudZona",
-              "Log:":"longitudZona",
-              "Horario:":"hourStart",}
+      the = { "Act:":"activeZona","Numero:":"numberZona","Nombre:":"nameZona","Ciudad:":"cityZona","Lat:":"latitudZona","Log:":"longitudZona","Horario:":"hourStart",}
 
-      if(ta !== '#' && ta !== 'Acciones:'){
-        adl === null ? adl = -1 : ''; // sessionStorage.setItem('ordenTable', -1); // En caso de que no exista
-
-        adl % 2 ? sna = 'ASC' : sna = 'DESC'; // Tabla acendente o desendente
+      if(tar !== '#' && tar !== 'Acciones:'){
+        ot === undefined ? adl = 0 : ''; // sessionStorage.setItem('ordenTable', -1); // En caso de que no exista
 
         adl++;
         ot = adl; // sessionStorage.setItem('ordenTable', adl); // guarda el valor
 
-        addClassTitleHeadTable(e.target, the[tar], (adl%2));
+        ot % 2 ? sna = 'DESC' : sna = 'ASC'; // Tabla acendente o desendente
+
+        addClassTitleHeadTable(e.target, the[tar], (ot%2));
 
         Zonas.getListZ(lim, (Number(ski) - 1), the[tar], sna); // Ordena la lista
       }
+
+    // Cambia el nombre de la busqueda.
+    sea.val('').attr({'placeholder':`Buscar por: ${e}`});
+    // El cambio de la busqueda en la base de datos.
+    tSearch = the[tar];
 });
 
 
+/**
+ * @description :: Cambia el incono del titulo de la tabla por ASC o DESC
+ * @param  {[type]} e   [description]
+ * @param  {[type]} san [description]
+ * @param  {[type]} ad  [description]
+ * @return {[type]}     [description]
+ */
 var addClassTitleHeadTable = (e, san, ad) => {
   let i     = e.cellIndex || e.offsetParent.cellIndex, // Sabe donde se Dios el click de la tabla
-      thead = $('#tableList thead tr td'), // Columna seleccionada de la table
+      thead = $('#tableList thead tr th'), // Columna seleccionada de la table
       ss = {};
 
   // Clear titulos con ASC o DESC icons
-  $('#tableList thead tr td.sorting_asc').removeClass('sorting_asc');
-  $('#tableList thead tr td.sorting_desc').removeClass('sorting_desc');
+  $('#tableList thead tr th.sorting_asc').removeClass('sorting_asc');
+  $('#tableList thead tr th.sorting_desc').removeClass('sorting_desc');
 
   // Rorganiza los atributos.
   for(let a=0;a<thead.length;a++){
