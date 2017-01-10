@@ -17,13 +17,13 @@
           <div class="col-md-3">
             <div class="form-group">
               <label for="eNumberZona">* Numero Zona</label>
-              <input type="number" placeholder="Numero Zona" maxLength="3" class="form-control" id="eNumberZona" name="eNumberZona">
+              <input type="number" placeholder="Numero Zona" minlength="3" maxLength="32" class="form-control" id="eNumberZona" name="eNumberZona" required>
             </div>
           </div>
           <div class="col-md-6">
             <div class="form-group">
               <label for="eZonaName">* Nombre de la Zona</label>
-              <input type="text" placeholder="Nombre de la Zona" maxLength="3" class="form-control" id="eZonaName" name="eZonaName">
+              <input type="text" placeholder="Nombre de la Zona" minlength="3" maxLength="32" class="form-control" id="eZonaName" name="eZonaName" required>
             </div>
           </div>
 
@@ -45,7 +45,7 @@
           <div class="col-md-3">
             <div class="form-group">
               <label>Activar Horario</label>
-              <select class="form-control" id="eActiveHourZona" name="eActiveHourZona">
+              <select class="form-control" id="eActiveHourZona" name="eActiveHourZona" required>
                 <option value="" disabled>Seleccionar</option>
                 <option value="false">Horario No Activo</option>
                 <option value="true" >Activar Horario</option>
@@ -148,8 +148,9 @@
 
 
 
-        <input type="hidden" name="eVersZona" id="eVersZona" value="0" />
-         <input type="hidden" name="_csrf" id="_csrf" value="<%= _csrf %>" />
+          <input type="hidden" name="eVersZona" id="eVersZona" value="0" />
+          <input type="hidden" name="eVersZona" id="eIdZona" value="" />
+          <input type="hidden" name="_csrf" id="_csrf" value="<%= _csrf %>" />
 
         <div class="row col-md-12">
           <p>* Campos Obligatorios</p>
@@ -161,7 +162,7 @@
       <!-- Footer del modal -->
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-        <button type="button" class="btn btn-primary" id="addNewZona">Añadir Zona</button>
+        <button type="button" class="btn btn-primary" id="saveEditZona">Guardar Cambios</button>
       </div>
 
     </div><!-- /.modal-content -->

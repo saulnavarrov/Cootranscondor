@@ -6,11 +6,11 @@ var urlPath = window.location.pathname; // identificador de la pagina.
 *                                                                                                 *
 ***************************************************************************************************/
 // SOCKET
-io.socket.on('zonas', (r) => {
-  console.log(r);
+io.socket.on('zonas', (rs) => {
+  console.log(rs);
 });
 
-var cantZo;
+var cantZo; // Paginacion.
 var Zonas = {
   "errorList":      $('#errorList'),
   "searchList":     $('#searchList'),
@@ -98,7 +98,7 @@ var Zonas = {
     _this.tableListTbody.append(`<tr id="zo-${it.id}">
       <td id="zoi-${it.id}">${ind+1}</td>
       <td>
-        <input type="checkbox" id="zoc-${it.id}" name="zoc-${it.id}"/>
+        <input type="checkbox" id="zoc-${it.id}" name="zoc-${it.id}" disabled/>
         <label for="dev-${it.id}"></label>
       </td>
       <td>${it.numberZona}</td>
@@ -128,6 +128,63 @@ var Zonas = {
     it.activeZona === 'active' ? $(`#zoc-${it.id}`).prop('checked','true') : $(`#zoc-${it.id}`).prop('checked','');
   },
 
+  /**
+   * @description :: Actualiza el item que esta en la lista.
+   * @param  {[type]} it [description]
+   * @return {[type]}    [description]
+   */
+  updatedItemList: it => {
+    let id = $(`#zo-${it.id}`);
+    let ind = $(`#zoi-${it.id}`);
+
+    id.html('');
+    id.html(`
+      <td id="zoi-${it.id}">${ind}</td>
+      <td>
+        <input type="checkbox" id="zoc-${it.id}" name="zoc-${it.id}" disabled/>
+        <label for="dev-${it.id}"></label>
+      </td>
+      <td>${it.numberZona}</td>
+      <td>${it.nameZona}</td>
+      <td>${it.cityZona}</td>
+      <td class="hidden-xs">${it.latitudZona === null ? '-':it.latitudZona}</td>
+      <td class="hidden-xs">${it.longitudZona === null ? '-':it.longitudZona}</td>
+      <td class="hidden-xs">${it.horariZona ? it.hourStart : ''} - ${it.horariZona ? it.hourEnd : ''}</td>
+      <td>
+        <!-- Single button -->
+        <div class="btn-group">
+            <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown">
+            <span class="caret"></span>
+          </button>
+          <ul class="dropdown-menu" style="right: 0px; left: inherit;">
+            <li role="separator" class="divider"></li>
+              <li><a href="#" onclick="Zonas.view('${it.id}')">Ver</a></li>
+              <li><a href="#" onclick="Zonas.edit('${it.id}')">Editar</a></li>
+              <li><a href="#" onclick="Zonas.dele('${it.id}')">Eliminar</a></li>
+            <li role="separator" class="divider"></li>
+          </ul>
+        </div>
+      </td>
+    `);
+    it.activeZona === 'active' ? $(`#zoc-${it.id}`).prop('checked','true') : $(`#zoc-${it.id}`).prop('checked','');
+  },
+
+  /**
+   * @description :: Elimina el item de la lista.
+   * @param  {[type]} it [description]
+   * @return {[type]}    [description]
+   */
+  deleteItemList: it => {
+    let _this = Zonas,
+        item = $('#tableList tbody tr');
+
+    // Remuevo el iten de la lista.
+    item.remove(`#zo-${it.id}`);
+
+    // Actualiza la pagina.
+    _this.getListZ();
+
+  },
 
   /**
    * @description :: Impresion y control de la paginacion.
@@ -161,10 +218,6 @@ var Zonas = {
       }
     });
   },
-
-
-  //error al crear la paginacion, no esta paginando corectamente eso quiere decir que cuando deberia paginar ocon 10 items deberia aparecer 2 de paginacion.
-
 
   /**
    * @description :: Cambia la cantidad de resultados
@@ -232,17 +285,73 @@ var Zonas = {
     swal('Success', 'Aun falta por terminar la funcion para Ver La zona \n'+id,'warning');
   },
 
+  /**
+   * @description :: Imprime los datos en el formulario para ser editados.
+   * @param  {[type]} id [description]
+   * @return {[type]}    [description]
+   */
   edit: id => {
-    $('#modalEditForm').modal('show');
-    swal('Success', 'Aun falta por terminar la funcion para editar Zona \n'+id,'warning');
+    let i = `${id}/`,
+        options = {url:'zonas', lim: 0, ids:i};
+    //Hace la peticion al servidor.
+    Crud.rea(options, (e,d,r) => {
+      if(r.statusCode !== 200){
+        swal('Error', 'No se encontro la zona o fue eliminada. Actualize la pagina y vuelva a intentarlo','warning');
+      }else{
+        $('#eNumberZona').val(d.numberZona);
+        $('#eZonaName').val(_.startCase(d.nameZona));
+        $('#eActiveZona').val(d.activeZona);
+        $('#eActiveHourZona').val(String(d.horariZona));
+        $('#eHoraStartZ').val(d.hourStart);
+        $('#eHoraEndZ').val(d.hourEnd);
+        $('#eCiudadZona').val(d.cityZona);
+        $('#eLatZona').val(d.latitudZona);
+        $('#eLonZona').val(d.longitudZona);
+        $('#eVersZona').val(d.version);
+        $('#eIdZona').val(d.id);
+        // Si el horario esta activo.
+        if(d.horariZona){
+          $('#eHoraStartZ').removeAttr('disabled');
+          $('#eHoraEndZ').removeAttr('disabled');
+        }
+        // Abre el modal con los datos ya cargados.
+        $('#modalEditForm').modal('show');
+
+      }
+    });
   },
 
+  /**
+   * @description :: Elimina la zona Seleccionada.
+   * @param  {[type]} id [description]
+   * @return {[type]}    [description]
+   */
   dele: id => {
-    swal('Success', 'Aun falta por terminar la funcion para eliminar Zona \n'+id,'warning');
+    let _this = Zonas,
+        i = `${id}/`,
+        options = {url:'zonas', lim: 0, ids:i};
+
+    swal({
+      title: 'Cuidado',
+      text: 'Estas a punto de Eliminar una de la zonas\nSe perdera toda la información, historiales y demas.\n ¿Desea Continuar?',
+      type: 'warning',
+      showCancelButton: true,
+      closeOnConfirm: false,
+      showLoaderOnConfirm: true,
+    }, () => {
+      Crud.del(options, (e,d,r) => {
+        if(r.statusCode !== 200){
+          swal('Error', `La Zona que desea Eliminar No existe o ha sido eliminada anteriormente.\nVuelva a intentarlo`,'error');
+        }else{
+          swal("Success", `La Zona se ha Eliminado Correctamente.`, "success");
+          _this.deleteItemList(d);// Elimina el item
+        }
+      });
+    });
   }
 }
 
-// Activa los selectorez de horarios
+// Activa los selectorez de horarios en Agregar
 $(document).on('change','#aActiveHourZona', e =>{
   e.preventDefault();
   let buttonActive = $('#aActiveHourZona').val();
@@ -256,12 +365,28 @@ $(document).on('change','#aActiveHourZona', e =>{
   }
 });
 
+// Activa los selectorez de horarios en editar.
+$(document).on('change','#eActiveHourZona', e =>{
+  e.preventDefault();
+  let buttonActive = $('#eActiveHourZona').val();
+
+  if(buttonActive !== 'false'){
+    $('#eHoraStartZ').removeAttr('disabled');
+    $('#eHoraEndZ').removeAttr('disabled');
+  }else{
+    $('#eHoraStartZ').attr({'disabled':''});
+    $('#eHoraEndZ').attr({'disabled':''});
+  }
+});
+
 /**
- * Agregar nueva zona a la base de datos
+ * @description :: Agrega la nueva zona.
+ * @param  {[type]} e [description]
+ * @return {[type]}   [description]
  */
 $(document).on('click', '#addNewZona', e => {
   e.preventDefault();
-
+  // Validando formulario
   let zend = 0;
       formVal.text('#aZonaName', r => {zend += r;});
       formVal.number('#aNumberZona', r => {zend += r;});
@@ -269,9 +394,11 @@ $(document).on('click', '#addNewZona', e => {
       formVal.text('#aActiveHourZona', r => {zend +=r;});
       formVal.text('#aCiudadZona', r => {zend += r;});
 
+  // Formulario no valido o inputs vacios
   if(zend){
     swal('Alerta', 'Por Favor llene los campos en rojo.','warning');
   }else{
+    // Recoleccion de datos para ser guardados.
     let options = {
       url: 'zonas',
       tok: $('#_csrf').val(),
@@ -283,24 +410,26 @@ $(document).on('click', '#addNewZona', e => {
         "activeZona":       $('#aActiveZona').val(),
         "horariZona":       $('#aActiveHourZona').val(),
         "hourStart":        $('#aHoraStartZ').val() || '0:00',
-        "hourEnd":          $('#aHoraEndZ').val() || '1:00',
+        "hourEnd":          $('#aHoraEndZ').val() || '0:00',
         "cityZona":         $('#aCiudadZona').val(),
         "version":          $('#aVersZona').val(),
         //"imagenZona":       ${'#'},
       }
     }
 
+    // Peticion al servidor.
     Crud.cre(options, (e,d,r) => {
-      console.log(r);
+      // En caso de error en la peticion
       if(e){
         swal('Error', `Se ha presentado un error en el Servidor.\nIntentelo de nuevo, \nSí el error persiste avise a soporte.`,'error');
       }
+      // por si la zona existe.
       else if(r.statusCode === 400){
         swal('Alerta', `Esta Zona ya se encuentra Registrada ${Number($('#aNumberZona').val())}`, 'warning');
         $('#aNumberZona').css({'border-color': 'red', 'box-shadow': '0px 0px 1px red'});
       }
       else if(r.statusCode === 201){
-
+        // Zona guardada correctamente.
         swal({
           title: "Zona Agregada Correctamente",
           text: "Los Datos han sido agregados correctamente.",
@@ -329,6 +458,73 @@ $(document).on('click', '#addNewZona', e => {
     });
   }
 });
+
+/**
+ * @description :: Envia la peticion y actualiza la lista en la DB y el Document.
+ * @param  {[type]} e [description]
+ * @return {[type]}   [description]
+ */
+$(document).on('click', '#saveEditZona', e => {
+  e.preventDefault();
+  // Validando datos.
+  let zend = 0;
+      formVal.text('#eZonaName', r => {zend += r;});
+      formVal.number('#eNumberZona', r => {zend += r;});
+      formVal.text('#eActiveZona', r => {zend += r;});
+      formVal.text('#eActiveHourZona', r => {zend +=r;});
+      formVal.text('#eCiudadZona', r => {zend += r;});
+
+  // Formulario no valido o inputs vacios
+  if(zend){
+    swal('Alerta', 'Por Favor llene los campos en rojo.','warning');
+  }else{
+    // Recoleccion de datos para ser guardados.
+    let options = {
+      url: 'zonas',
+      tok: $('#_csrf').val(),
+      ids: $('#eIdZona').val(),
+      dat: {
+        "numberZona":       Number($('#eNumberZona').val()),
+        "nameZona":         _.startCase($('#eZonaName').val()),
+        "latitudZona":      parseFloat($('#eLatZona').val()),
+        "longitudZona":     parseFloat($('#eLonZona').val()),
+        "activeZona":       $('#eActiveZona').val(),
+        "horariZona":       $('#eActiveHourZona').val(),
+        "hourStart":        $('#eHoraStartZ').val() || '0:00',
+        "hourEnd":          $('#eHoraEndZ').val() || '0:00',
+        "cityZona":         $('#eCiudadZona').val(),
+        "version":          Number($('#eVersZona').val()) + 1,
+        //"imagenZona":       ${'#'},
+      }
+    };
+
+    Crud.upd(options, (e,d,r) => {
+      if(e){
+        swal('Error', `Se ha presentado un error en el Servidor.\nIntentelo de nuevo, \nSí el error persiste avise a soporte.`,'error');
+      }else if(r.statusCode === 404){
+        swal('Error', `La Zona que desea Editar No existe o ha sido eliminado.\nVuelva a intentarlo`,'error');
+      }else{
+        // Impresion en pantalla si los datos
+        if(r.statusCode === 200){
+          swal({
+            title: "Zona Guardada Correctamente",
+            text: "Los Datos han sido Actualizados correctamente.",
+            type: "success",
+            showCancelButton: false,
+            confirmButtonColor: "#5CE27F",
+            confirmButtonText: "Ok",
+            closeOnConfirm: false
+          },function(){
+          // Clear formulario
+           $('#modalEditForm').modal('hide');
+            Zonas.updatedItemList(d);
+          });
+        }
+      }
+    });
+  }
+
+})
 
 /**************************************************************************************************
 *                                                                                                 *

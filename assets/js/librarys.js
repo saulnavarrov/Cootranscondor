@@ -33,6 +33,7 @@ function _init(){"use strict";$.AdminLTE.layout={activate:function(){var a=this;
  */
 var Crud = {
 
+  // Crear o añadir nuevo.
   cre: (opt, cb) =>{
     let url = opt.url || '',        // url
         idi = opt.ids || '',        // Ver Uno en concreto
@@ -62,6 +63,7 @@ var Crud = {
     });
   },
 
+  // Ver lista o en concreto.
   rea: (opt, cb) =>{
     let ul = opt.url || '',           // Url
         li = opt.lim || 10,           // Limite de resultados
@@ -104,19 +106,77 @@ var Crud = {
     });
   },
 
+  // Buscar dentro de un documento.
   sea: (opt, cb) =>{
     cb('Buscar');
   },
 
+  // Actualizar un documento.
   upd: (opt, cb) =>{
-    cb('updated');
+    let url = opt.url || '',        // url
+        ids = opt.ids || '',        // Ver Uno en concreto
+        hea = opt.hea || {},        // cabezera
+        dat = opt.dat || {},        // Datos
+        tok = opt.tok || '',        // token
+        jwt = opt.jwt || '';        // token usuario
+
+    // Peticion al servidor
+    io.socket.request({
+      'method': 'put',
+      'url': `/api/${url}/${ids}`,
+      'data': dat,
+      'headers': {
+        'x-csrf-token': tok,
+        'Authorization': 'Bearer ' + jwt,
+        'head': hea,
+      }
+    },(d,r)=>{
+      if(r.statusCode === 500){
+        console.error(r.err);
+        swal('Error', `Se ha presentado un error en el Servidor.\nIntentelo de nuevo, \nSí el error persiste avise a soporte.`,'error');
+        cb(true,d,r);
+      }else{
+        cb(false,d,r);
+      }
+    });
   },
 
+  // Eliminar un documento.
   del: (opt, cb) =>{
-    cb('Eliminar');
+    let url = opt.url || '',        // url
+        ids = opt.ids || '',        // Ver Uno en concreto
+        hea = opt.hea || {},        // cabezera
+        dat = opt.dat || {},        // Datos
+        tok = opt.tok || '',        // token
+        jwt = opt.jwt || '';        // token usuario
+
+    // Peticion al servidor.
+    io.socket.request({
+      'method': 'delete',
+      'url': `/api/${url}/${ids}`,
+      'data': dat,
+      'headers': {
+        'x-csrf-token': tok,
+        'Authorization': 'Bearer ' + jwt,
+        'head': hea,
+      }
+    },(d,r) => {
+      if(r.statusCode === 500){
+        console.error(r.err);
+        swal('Error', `Se ha presentado un error en el Servidor.\nIntentelo de nuevo, \nSí el error persiste avise a soporte.`,'error');
+        cb(true,d,r);
+      }else{
+        cb(false,d,r);
+      }
+    })
   },
 };
 
+/**
+ * formVal
+ * @description :: Validador de formulario sencillo.
+ * @type {Object}
+ */
 var formVal = {
   // Validando texto
   text: (op, cb) => {
