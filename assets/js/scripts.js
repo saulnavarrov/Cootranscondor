@@ -623,7 +623,7 @@ $(document).on('click', '#searchZonas', e => {
     };
 
   // Hace la peticion al servidor y la imprimira en pantalla.
-  searchListTable(options)
+  searchListTable(options);
 });
 
 /**
@@ -718,18 +718,53 @@ if(location.pathname){
 }
 
 /**
- * setChangeActiveMenu description
+ * setChangeActiveMenu
+ * @description :: Cambiara el menu activo
  * @param {[Strign]} z [El id del li del menu]
  * @param {[Strign]} x [El id del li del menu, en caso de que tenga un padre el li ajustes > logs]
  */
 function setChangeActiveMenu(z,x){
-  var a = $(`#${z}`); // Busca el identificador que se ha seleccionado
-  var b = $(`#${x}`); // Busca el identificador Padre selecionado ajustes > generales
+  let a = $(`#${z}`), // Busca el identificador que se ha seleccionado
+      b = $(`#${x}`), // Busca el identificador Padre selecionado ajustes > generales
+      c = localStorage.getItem('sidebar-toggle'); // Leera el toggle
+
   a.addClass('active'); // añade la clase
   b.addClass('active');
+
+  !c ? $('body').removeClass('sidebar-collapse') : $('body').addClass('sidebar-collapse');
 }
 
+/**
+ * @description :: Controlara el toggle de sidebar izquierdo, y lo mantendra como lo dejo.
+ * @param  {[type]} e [description]
+ * @return {[type]}   [description]
+ */
 $(document).on('click', '.sidebar-toggle', e => {
   e.preventDefault();
-  console.log(e);
+  // true cerrado --- false abierto
+  let sidebarLocal = localStorage.getItem('sidebar-toggle');
+
+  console.log(sidebarLocal);
+
+
+  if(!Boolean(sidebarLocal)){
+    console.log('cerrado '+true);
+    localStorage.setItem('sidebar-toggle', false);
+    console.log(localStorage.getitem('sidebar-toggle'));
+  }
+  else{
+    console.log('abierto '+false);
+    localStorage.setItem('sidebar-toggle', true);
+    console.log(localStorage.getitem('sidebar-toggle'));
+  }
+
+  // // En caso de que no exista la variable en local
+  // // if(Boolean(sidebarLocal))
+  //   // localStorage.setItem('sidebar-toggle');
+
+  // console.log(sidebarLocal);
+
+  // // Guardara el cambio.
+  // !Boolean(sidebarLocal) ? localStorage.setItem('sidebar-toggle', false) :  localStorage.setItem('sidebar-toggle', true);
+
 });
