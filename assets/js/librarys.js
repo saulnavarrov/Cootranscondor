@@ -108,7 +108,45 @@ var Crud = {
 
   // Buscar dentro de un documento.
   sea: (opt, cb) =>{
-    cb('Buscar');
+    console.log(opt);
+    let mod = opt.mon || '',        // Nombre
+        sea = opt.sea || '',        // Dato a buscar
+        url = opt.url || '',        // url
+        lim = opt.lim || 20,        // limite resultados
+        ski = opt.ski || 0,         // omiciones paginador
+        son = opt.son || 'id',      // orden
+        soa = opt.soa || 'ASC',     // orden ASC o DESC
+        idi = opt.ids || '',        // Ver Uno en concreto
+        hea = opt.hea || {},        // cabezera
+        tok = opt.tok || '',        // token
+        jwt = opt.jwt || '',        // token usuario
+        whe = '';
+
+    // Saber si es numero o string y asi organizar el where
+    if(!isNaN(Number(sea))){
+      whe = `where={"${mod}":${Number(sea)}}`;
+    }else{
+      whe = `where={"${mod}":{"contains":"${sea}"}}`;
+    }
+
+    // Request al server.
+    io.socket.request({
+      'method': 'get',
+      'url': `/api/${url}/?limit=${lim}&skip=${lim*ski}&sort=${son}%20${soa}&${whe}`,
+      'headers': {
+        'x-csrf-token': tok,
+        'Authorization': 'Bearer ' + jwt,
+        'head': hea,
+      }
+    },(d,r) => {
+      if(r.statusCode === 500){
+        console.error(r.err);
+        swal('Error', `Se ha presentado un error en el Servidor.\nIntentelo de nuevo, \nSí el error persiste avise a soporte.`,'error');
+        cb(true,d,r);
+      }else{
+        cb(false,d,r);
+      }
+    });
   },
 
   // Actualizar un documento.

@@ -415,7 +415,7 @@ $(document).on('click', '#addNewZona', e => {
         "version":          $('#aVersZona').val(),
         //"imagenZona":       ${'#'},
       }
-    }
+    };
 
     // Peticion al servidor.
     Crud.cre(options, (e,d,r) => {
@@ -492,7 +492,7 @@ $(document).on('click', '#saveEditZona', e => {
         "horariZona":       $('#eActiveHourZona').val(),
         "hourStart":        $('#eHoraStartZ').val() || '0:00',
         "hourEnd":          $('#eHoraEndZ').val() || '0:00',
-        "cityZona":         $('#eCiudadZona').val(),
+        "cityZona":         _.startCase($('#eCiudadZona').val()),
         "version":          Number($('#eVersZona').val()) + 1,
         //"imagenZona":       ${'#'},
       }
@@ -532,36 +532,46 @@ $(document).on('click', '#saveEditZona', e => {
  * @return {[type]}   [description]
  */
 let ot; // orden table
-let tSearch; // cambio de busqueda de la tabla.
+let ord = {son: '', soa: ''}; // Guarda el orden de la tabla para la busqueda.
 $(document).on('click', '#tableList thead tr th', e => {
   e.preventDefault();
 
   let ski = $('#pagNum li.active').text(),          // Numero de la pagina
       lim = $('#limitItemsPag').val(),              // Valor cantidad items
-      sea = $('input[name=table_search]'),            // Input Search
+      sea = $('input[name=search_text]'),            // Input Search
       itm = e.target.offsetParent.cellIndex,        // Index titulo table donde hace click
       tar = e.target.textContent,                   // Obtiene el valor del titulo
       adl = ot,                                     // contador ASC o DESC
       sna = '',                                     // valor ASC o DESC
       the = { "Act:":"activeZona","Numero:":"numberZona","Nombre:":"nameZona","Ciudad:":"cityZona","Lat:":"latitudZona","Log:":"longitudZona","Horario:":"hourStart",}
 
-      if(tar !== '#' && tar !== 'Acciones:'){
-        ot === undefined ? adl = 0 : ''; // sessionStorage.setItem('ordenTable', -1); // En caso de que no exista
+  // Ejecucion del filtro.
+  if(tar !== '#' && tar !== 'Acciones:'){
+    // En caso de que no exista y si existe lo sume.
+    ot === undefined ? adl = 0 : adl++;
 
-        adl++;
-        ot = adl; // sessionStorage.setItem('ordenTable', adl); // guarda el valor
+    // guarda el valor
+    ot = adl;
 
-        ot % 2 ? sna = 'DESC' : sna = 'ASC'; // Tabla acendente o desendente
+    // Tabla acendente o desendente
+    ot % 2 ? sna = 'DESC' : sna = 'ASC';
 
-        addClassTitleHeadTable(e.target, the[tar], (ot%2));
+    // Guarda de manera temporal el orden de la busqueda.
+    ord = {son: the[tar], soa: sna}
 
-        Zonas.getListZ(lim, (Number(ski) - 1), the[tar], sna); // Ordena la lista
-      }
+    // Agrega el icono en la tabla
+    addClassTitleHeadTable(e.target, the[tar], (ot%2));
 
-    // Cambia el nombre de la busqueda.
-    sea.val('').attr({'placeholder':`Buscar por: ${e}`});
-    // El cambio de la busqueda en la base de datos.
-    tSearch = the[tar];
+    // Ordena la lista
+    Zonas.getListZ(lim, (Number(ski) - 1), the[tar], sna);
+  }
+
+  // Cambia el nombre de la busqueda.
+  sea.val('');
+  sea.attr({'placeholder':`Buscar por ${tar}`});
+  // El cambio de la busqueda en la base de datos.
+  $('input[name=search_title]').val(the[tar]);
+
 });
 
 
@@ -574,8 +584,7 @@ $(document).on('click', '#tableList thead tr th', e => {
  */
 var addClassTitleHeadTable = (e, san, ad) => {
   let i     = e.cellIndex || e.offsetParent.cellIndex, // Sabe donde se Dios el click de la tabla
-      thead = $('#tableList thead tr th'), // Columna seleccionada de la table
-      ss = {};
+      thead = $('#tableList thead tr th'); // Columna seleccionada de la table
 
   // Clear titulos con ASC o DESC icons
   $('#tableList thead tr th.sorting_asc').removeClass('sorting_asc');
@@ -594,8 +603,97 @@ var addClassTitleHeadTable = (e, san, ad) => {
   }else{
     thead.eq(i).addClass('sorting_desc');
   }
+};
 
-}
+/**
+ * @description :: Funcion para buscar dentro de la tabla.
+ * @param  {[type]} e [description]
+ * @return {[type]}   [description]
+ */
+$(document).on('click', '#searchZonas', e => {
+  e.preventDefault();
+
+  let options = {
+      mon: $('input[name=search_title]').val(),
+      sea: $('input[name=search_text]').val(),
+      pag: 'Zonas',
+      url: 'zonas',
+      son: ord.son || $('input[name=search_title]').val(),
+      soa: ord.soa || 'ASC'
+    };
+
+  // Hace la peticion al servidor y la imprimira en pantalla.
+  searchListTable(options)
+});
+
+/**
+ * @description :: Buscara e imprimira en la tabla los resultados de la busqueda.
+ * @param  {[type]} opt [description]
+ * @return {[type]}     [description]
+ */
+var searchListTable = opt => {
+  let options       = { mon: opt.mon, sea: opt.sea, url: opt.url, lim: 0, ski: 0, son: opt.son, soa: opt.sao},
+      pagina        = opt.pag || '',
+      errorList     = $('#errorList'),
+      tableListTbody = $('#tableList tbody'),
+      listCero      = $('#listCero'),
+      paginations   = $('#paginations');
+
+  if(opt.sea !== ''){
+    // Peticion al servidor
+    Crud.sea(options, (e,d,r) => {
+      if(e) {
+        errorList.removeAttr('hidden');
+        errorList.html('');
+        errorList.html(`<div class="col-md-12">
+            <h3 class="text-danger text-center">Error</h3>
+            <p class="text-center">Se ha presentado un error en el Servidor.<br>
+            Intentelo de nuevo. <br>Sí el error persiste avise a soporte.</p>
+          </div>`);
+      }
+      // si la peticion falla
+      else if(r.statusCode !== 200) {
+        errorList.removeAttr('hidden');
+        paginations.attr({'hidden':''});
+        errorList.html('');
+        errorList.html(`<div class="col-md-12">
+            <h3 class="text-danger text-center">Error</h3>
+            <p class="text-center">Se ha presentado al cargar la lista: ${pagina}.<br>
+            Intentelo de nuevo. <br>Sí el error persiste, contacte con soporte.</p>
+          </div>`);
+      }
+      // Si la peticion es real
+      else {
+        if (!d.length) {
+          tableListTbody.html('');
+          paginations.attr({'hidden':''});
+          listCero.removeAttr('hidden');
+          listCero.html(`<div class="col-md-12">
+            <p class="text-center">No se ha encontrado ningun resultado</p>
+          </div>`);
+        }else{
+          listCero.attr({'hidden':''});
+          paginations.attr({'hidden':''});
+          tableListTbody.html(''); //Clear Table
+          // Imprimiendo tabla
+          d.forEach((it, ind) => {
+            switch (location.pathname) {
+              // case '/history':        break;
+              // case '/consultas':      break;
+              // case '/permisos':       break;
+              // case '/taxis':          break;
+              case '/zonas':          Zonas.printListResultZ(it, ind); break;
+              // case '/notificaciones': break;
+              // case '/ajustes/users':  break;
+              // case '/ajustes/logs':   break;
+              default: break;
+            }
+          });
+        }
+      }
+    });
+  }
+};
 
 /**************************************************************************************************
 *                                                                                                 *
@@ -630,3 +728,8 @@ function setChangeActiveMenu(z,x){
   a.addClass('active'); // añade la clase
   b.addClass('active');
 }
+
+$(document).on('click', '.sidebar-toggle', e => {
+  e.preventDefault();
+  console.log(e);
+});
