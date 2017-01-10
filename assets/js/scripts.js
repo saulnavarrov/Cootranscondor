@@ -7,7 +7,7 @@ var urlPath = window.location.pathname; // identificador de la pagina.
 ***************************************************************************************************/
 // SOCKET
 io.socket.on('zonas', (rs) => {
-  console.log(rs);
+
 });
 
 var cantZo; // Paginacion.
@@ -236,14 +236,14 @@ var Zonas = {
    */
   listPag: s => {
     let _this = Zonas,
-        l = $('#limitItemsPag').val(), // Obtiene la cantidad de resultados a imprimir
-        sna = JSON.parse(sessionStorage.getItem('orderTitleTableZonas')) || ''; // Ordena la tabla, como quedo guardada
+        l = $('#limitItemsPag').val(); // Obtiene la cantidad de resultados a imprimir
+        // sna = JSON.parse(sessionStorage.getItem('orderTitleTableZonas')) || ''; // Ordena la tabla, como quedo guardada
 
         // Cambia la pagina
         _this.prevNextPagZona(s);
 
         // Imprime de nuevo la lista con el orden, el nuevo limite y la omicion (paginacion)
-        _this.getListZ(l, s, sna.sn, sna.sa);
+        _this.getListZ(l, s);
   },
 
   /**
@@ -515,16 +515,75 @@ $(document).on('click', '#saveEditZona', e => {
             confirmButtonText: "Ok",
             closeOnConfirm: false
           },function(){
-          // Clear formulario
-           $('#modalEditForm').modal('hide');
+            // Clear formulario
+            $('#modalEditForm').modal('hide');
+            swal.close();
             Zonas.updatedItemList(d);
           });
         }
       }
     });
   }
+});
 
-})
+let ot; // orden table
+$(document).on('click', '#tableList thead tr td', e => {
+  e.preventDefault();
+  console.log(e);
+
+  let ski = $('#pagNum li.active').text(),          // Numero de la pagina
+      lim = $('#limitItemsPag').val(),              // Valor cantidad items
+      itm = e.target.offsetParent.cellIndex,        // Index titulo table donde hace click
+      tar = e.target.textContent,                   // Obtiene el valor del titulo
+      adl = ot,// sessionStorage.getItem('ordenTable'),   // contador ASC o DESC
+      sna = '',                                     // valor ASC o DESC
+      the = { "Act:":"activeZona",
+              "Numero:":"numberZona",
+              "Nombre:":"nameZona",
+              "Ciudad:":"cityZona",
+              "Lat:":"latitudZona",
+              "Log:":"longitudZona",
+              "Horario:":"hourStart",}
+
+      if(ta !== '#' && ta !== 'Acciones:'){
+        adl === null ? adl = -1 : ''; // sessionStorage.setItem('ordenTable', -1); // En caso de que no exista
+
+        adl % 2 ? sna = 'ASC' : sna = 'DESC'; // Tabla acendente o desendente
+
+        adl++;
+        ot = adl; // sessionStorage.setItem('ordenTable', adl); // guarda el valor
+
+        addClassTitleHeadTable(e.target, the[tar], (adl%2));
+
+        Zonas.getListZ(lim, (Number(ski) - 1), the[tar], sna); // Ordena la lista
+      }
+});
+
+
+var addClassTitleHeadTable = (e, san, ad) => {
+  let i     = e.cellIndex || e.offsetParent.cellIndex, // Sabe donde se Dios el click de la tabla
+      thead = $('#tableList thead tr td'), // Columna seleccionada de la table
+      ss = {};
+
+  // Clear titulos con ASC o DESC icons
+  $('#tableList thead tr td.sorting_asc').removeClass('sorting_asc');
+  $('#tableList thead tr td.sorting_desc').removeClass('sorting_desc');
+
+  // Rorganiza los atributos.
+  for(let a=0;a<thead.length;a++){
+    // Filtro para omitir el primero y el ultimo de la lista.
+    if(a !== 0 && a !== (thead.length - 1))
+      thead.eq(a).addClass('sorting') // Volvera a poner las clases
+  }
+
+  // Pondra el ASC o DESC en el titulo clickeado
+  if(!ad){
+    thead.eq(i).addClass('sorting_asc');
+  }else{
+    thead.eq(i).addClass('sorting_desc');
+  }
+
+}
 
 /**************************************************************************************************
 *                                                                                                 *
