@@ -40,7 +40,7 @@ module.exports = {
     "activeZona": {
       type: 'String',
       enum: ['active','disabled','deleted'],
-      defaultsTo: true,
+      defaultsTo: 'active',
       required: true,
     },
 
@@ -76,6 +76,7 @@ module.exports = {
 
     "imagenZona": {
       type: 'String',
+      defaultsTo: '/images/logo_1.png',
       maxLength: 254,
     },
 
