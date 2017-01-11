@@ -135,7 +135,7 @@ var Zonas = {
    */
   updatedItemList: it => {
     let id = $(`#zo-${it.id}`);
-    let ind = $(`#zoi-${it.id}`);
+    let ind = $(`#zoi-${it.id}`).text();
 
     id.html('');
     id.html(`
@@ -282,7 +282,29 @@ var Zonas = {
    */
   view: (id) => {
     $('#modalSeeForm').modal('show');
-    swal('Success', 'Aun falta por terminar la funcion para Ver La zona \n'+id,'warning');
+    let i = `${id}/`,
+        options = {url:'zonas', lim: 0, ids:i};
+    //Hace la peticion al servidor.
+    Crud.rea(options, (e,d,r) => {
+      if(r.statusCode !== 200){
+        swal('No se encontro', 'No se encontro la zona o fue eliminada. Actualize la pagina y vuelva a intentarlo','warning');
+      }else{
+        $('#sTitleZona').text(`Zona: ${d.numberZona} ${d.nameZona}`),
+        $('#sImagenZona').attr({'src':`${d.imagenZona}`, 'alt': `${d.nameZona}`}),
+        $('#sEditZona').attr({'onclick': `Zonas.edit('${d.id}')`}),
+        $('#sNumberZona').text(d.numberZona),
+        $('#sNameZona').text(d.nameZona),
+        $('#sCityZona').text(d.cityZona),
+        $('#sActiveZona').text(`${d.activeZona ? 'Activo' : 'No Activo'}`),
+        $('#sLatZona').text(`${d.latitudZona !== null ? d.latitudZona : ''}`),
+        $('#sLonZona').text(`${d.longitudZona !== null ? d.longitudZona : ''}`),
+        $('#sHourZona').text(`${d.horariZona ? 'Activo' : 'No Activo'}`),
+        $('#sHoraInicioZona').text(d.hourStart),
+        $('#sHoraFinalZona').text(d.hourEnd);
+
+        // Agergar la funcion de mapas.
+      }
+    });
   },
 
   /**
@@ -291,12 +313,14 @@ var Zonas = {
    * @return {[type]}    [description]
    */
   edit: id => {
+    $('#modalSeeForm').modal('hide'); // Cerrara el modal en caso de que venga de view
+
     let i = `${id}/`,
         options = {url:'zonas', lim: 0, ids:i};
     //Hace la peticion al servidor.
     Crud.rea(options, (e,d,r) => {
       if(r.statusCode !== 200){
-        swal('Error', 'No se encontro la zona o fue eliminada. Actualize la pagina y vuelva a intentarlo','warning');
+        swal('No se encontro', 'No se encontro la zona o fue eliminada. Actualize la pagina y vuelva a intentarlo','warning');
       }else{
         $('#eNumberZona').val(d.numberZona);
         $('#eZonaName').val(_.startCase(d.nameZona));
@@ -492,7 +516,7 @@ $(document).on('click', '#saveEditZona', e => {
         "horariZona":       $('#eActiveHourZona').val(),
         "hourStart":        $('#eHoraStartZ').val() || '0:00',
         "hourEnd":          $('#eHoraEndZ').val() || '0:00',
-        "cityZona":         _.startCase($('#eCiudadZona').val()),
+        "cityZona":         $('#eCiudadZona').val(),
         "version":          Number($('#eVersZona').val()) + 1,
         //"imagenZona":       ${'#'},
       }
@@ -505,6 +529,7 @@ $(document).on('click', '#saveEditZona', e => {
         swal('Error', `La Zona que desea Editar No existe o ha sido eliminado.\nVuelva a intentarlo`,'error');
       }else{
         // Impresion en pantalla si los datos
+        console.log(r);
         if(r.statusCode === 200){
           swal({
             title: "Zona Guardada Correctamente",
@@ -731,7 +756,7 @@ function setChangeActiveMenu(z,x){
   a.addClass('active'); // añade la clase
   b.addClass('active');
 
-  !c ? $('body').removeClass('sidebar-collapse') : $('body').addClass('sidebar-collapse');
+  c !== 'false' ? $('body').removeClass('sidebar-collapse') : $('body').addClass('sidebar-collapse');
 }
 
 /**
@@ -743,28 +768,10 @@ $(document).on('click', '.sidebar-toggle', e => {
   e.preventDefault();
   // true cerrado --- false abierto
   let sidebarLocal = localStorage.getItem('sidebar-toggle');
-
-  console.log(sidebarLocal);
-
-
-  if(!Boolean(sidebarLocal)){
-    console.log('cerrado '+true);
+  // Guardara el estado en localStorage
+  if(sidebarLocal !== 'false'){
     localStorage.setItem('sidebar-toggle', false);
-    console.log(localStorage.getitem('sidebar-toggle'));
-  }
-  else{
-    console.log('abierto '+false);
+  }else{
     localStorage.setItem('sidebar-toggle', true);
-    console.log(localStorage.getitem('sidebar-toggle'));
   }
-
-  // // En caso de que no exista la variable en local
-  // // if(Boolean(sidebarLocal))
-  //   // localStorage.setItem('sidebar-toggle');
-
-  // console.log(sidebarLocal);
-
-  // // Guardara el cambio.
-  // !Boolean(sidebarLocal) ? localStorage.setItem('sidebar-toggle', false) :  localStorage.setItem('sidebar-toggle', true);
-
 });

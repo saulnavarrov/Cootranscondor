@@ -6,22 +6,74 @@
       <!-- Header Modal -->
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h3 class="modal-title" id="sTitle">Zona: </h3>
+        <h3 class="modal-title" id="sTitleZona">Zona: </h3>
       </div>
 
       <!-- Contenido del modal -->
       <div class="modal-body">
 
+        <section class="modal-body row">
+          <!-- foto -->
+          <section class="col-md-3">
+            <div class="box box-primary">
+              <header class="box-header with-border text-center">
+                <h3 class="box-title">Imagen ubicación</h3>
+              </header>
+              <article>
+                <img src="/images/logo_1.png" alt="Imagen de la zona" id="sImagenZona">
 
-        <h3>Vista de la zona.</h3>
+                <br>
+                <hr>
+                <a href="#" class="btn btn-primary btn-block" id="sEditZona"><b>Editar</b></a>
+              </article>
+            </div>
+          </section>
+
+          <!-- informacion -->
+          <section class="col-md-9">
+            <!-- datos -->
+            <div class="box box-primary">
+              <header class="box-header with-border text-left">
+                <h3 class="box-title">Datos:</h3>
+              </header>
+              <article class="box-body">
+                 <pre class="infoZonas"><strong>Id:     </strong><span id="sNumberZona"></span>          <strong>Zona Activa: </strong><span id="sActiveZona"></span></pre>
+                 <pre class="infoZonas"><strong>Nombre: </strong><span id="sNameZona"></span></pre>
+                 <pre class="infoZonas"><strong>Ciudad: </strong><span id="sCityZona"></span></pre>
+              </article>
+            </div>
+
+            <!-- ubicacion -->
+            <div class="box box-primary">
+              <header class="box-header with-border text-left">
+                <h3 class="box-title">Ubicación:</h3>
+              </header>
+              <article class="box-body">
+                <pre class="infoZonas"><strong>Latitud: </strong><span id="sLatZona"></span>     <strong>Longitud: </strong><span id="sLonZona"></span> </pre>
+                <div class="map"></div>
+              </article>
+            </div>
+
+            <!-- horario -->
+            <div class="box box-primary">
+              <header class="box-header with-border text-left">
+                <h3 class="box-title">Horario:</h3>
+              </header>
+              <article class="box-body">
+                <pre class="infoZonas"><strong>Id: </strong><span id="sHourZona"></span></pre>
+                <pre class="infoZonas"><strong>Hora Inicio: </strong><span id="sHoraInicioZona"></span>     <strong>Hora final: </strong><span id="sHoraFinalZona"></span>
+              </article>
+            </div>
+
+          </section>
+        </section> <!-- section row -->
 
         <br>
       </div>
 
       <!-- Footer del modal -->
       <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-        <button type="button" class="btn btn-primary" id="addNewZona">Añadir Zona</button>
+        <button type="button" class="btn btn-primary" data-dismiss="modal">Ok</button>
       </div>
 
     </div><!-- /.modal-content -->
