@@ -1,0 +1,243 @@
+<!-- Large modal -->
+<div class="modal fade" id="modalAddForm" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+
+      <!-- Header Modal -->
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="titleAddForm">Añadir nuevo Operador</h4>
+      </div>
+
+      <!-- Contenido del modal -->
+      <div class="modal-body" id="createOperators">
+
+          <!-- nombre completo -->
+          <div class="row">
+            <div class="col-md-3">
+              <div class="form-group has-feedback">
+                <label for="apellido1">*Primer Apellido</label>
+                <input type="text" class="form-control" id="aOperatorApellido1" placeholder="Primer Apellido" maxlength="24" required>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="form-group">
+                <label>*Segundo Apellido</label>
+                <input type="text" class="form-control" id="aOperatorApellido2" placeholder="Segundo Apellido" maxlength="24" required>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="form-group">
+                <label>*Primer Nombre</label>
+                <input type="text" class="form-control" id="aOperatorNombre1" placeholder="Primer Nombre" maxlength="24" required>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="form-group">
+                <label>Segundo Nombre</label>
+                <input type="text" class="form-control" id="aOperatorNombre2" placeholder="Segundo Nombre" maxlength="24">
+              </div>
+            </div>
+          </div>
+
+          <hr />
+          <!-- Identidad -->
+          <div class="row">
+            <div class="col-md-3">
+              <div class="form-group">
+                  <label>*Tipo Documento</label>
+                  <select class="form-control" id="aOperatorTipoIdentidad" required>
+                    <option disabled selected value="0">Seleccionar</option>
+                    <option value="CC">Cedula</option>
+                    <option value="TI">Tarjeta de Identidad</option>
+                    <!-- <option value="CE">Cedula Extrangeria</option> -->
+                    <option value="RC">Registro Civil</option>
+                  </select>
+                </div>
+            </div>
+            <div class="col-md-3">
+              <div class="form-group">
+                <label>*Numero de Documento</label>
+                <input type="number" class="form-control" id="aOperatorNumeroIdentidad" placeholder="Numero de Documento" maxlength="24" required>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="form-group">
+                <label>*Fecha Expedicion</label>
+
+                <div class="input-group date">
+                  <div class="input-group-addon">
+                    <i class="fa fa-calendar"></i>
+                  </div>
+                  <input type="date" class="form-control pull-right" id="aOperatorExpedicionIdentidad" required>
+                </div>
+                <!-- /.input group -->
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="form-group">
+                <label>*Cuidad Expedición</label>
+                <input type="text" class="form-control" id="aOperatorCuidadExpedicion" placeholder="Cuidad de Expedición" maxlength="32" required>
+              </div>
+            </div>
+
+          </div>
+          <!-- Expedicion de la cedula -->
+          <div class="row">
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label>*Sexo</label>
+                    <select class="form-control" id="aOperatorSexo" required>
+                      <option disabled selected value="0">Seleccionar</option>
+                      <option value="true">Femenino</option>
+                      <option value="false">Masculino</option>
+                    </select>
+                </div>
+              </div>
+              <div class="col-md-3">
+                <div class="form-group">
+                    <label>*Estado Civil</label>
+                    <select class="form-control" id="aOperatorEstadoCivil" required>
+                      <option disabled selected value="0">Seleccionar</option>
+                      <option value="Soltero">Soltero (a)</option>
+                      <option value="Casado">Casado (a)</option>
+                      <option value="Union Libre">Union Libre</option>
+                      <option value="Separado">Separado (a)</option>
+                      <option value="Divorciado">Divolciado (a)</option>
+                      <option value="Viudo">Viudo (a)</option>
+                    </select>
+                </div>
+              </div>
+            <div class="col-md-6"></div>
+          </div>
+
+          <hr />
+          <!-- Cumpleaños y nacimiento -->
+          <div class="row">
+            <div class="col-md-3">
+              <div class="form-group">
+                <label>*Fecha de nacimiento</label>
+
+                <div class="input-group date">
+                  <div class="input-group-addon">
+                    <i class="fa fa-calendar"></i>
+                  </div>
+                  <input type="date" class="form-control pull-right" id="aOperatorFechaNacimiento" required>
+                </div>
+                <!-- /.input group -->
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="form-group">
+                <label>*Departamento</label>
+                <input type="text" class="form-control" id="aOperatorDepartamentoNacimiento" placeholder="Departamento" maxLength="32" required>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="form-group">
+                <label>*Ciudad</label>
+                <input type="text" class="form-control" id="aOperatorCuidadNacimiento" placeholder="Ciudad" maxLength="32" required>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="form-group">
+                <label>*Pais</label>
+                <input type="text" class="form-control" id="aOperatorPaisNacimiento" placeholder="Pais" value="Colombia" maxLength="32" required>
+              </div>
+            </div>
+          </div>
+
+          <hr />
+          <!-- Sangre -->
+          <div class="row">
+            <div class="col-md-3">
+              <div class="form-group">
+                  <label>*Tipo Sangre</label>
+                  <select class="form-control" id="aOperatorTipoSangre" required onchange="Operators.bloodType()">
+                    <option disabled selected value="0">Seleccionar</option>
+                    <option value="A">A</option>
+                    <option value="B">B</option>
+                    <option value="AB">AB</option>
+                    <option value="O">O</option>
+                    <option value="Other">Otra</option>
+                  </select>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="form-group">
+                <label>Otro Tipo Sangre</label>
+                <input type="text" class="form-control" id="aOperatorOtraSangre" placeholder="Otro tipo de sangre" maxLength="3" disabled>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="form-group">
+                  <label>*RH</label>
+                  <select class="form-control" id="aOperatorRhSangre" required>
+                    <option disabled selected value="0">Seleccionar</option>
+                    <option value="true">Positivo</option>
+                    <option value="false">Negativo</option>
+                  </select>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="form-group">
+                  <label>Altura</label>
+                  <input type="text" class="form-control" id="aOperatorAltura" placeholder="1.75 mt" maxLength="7">
+              </div>
+            </div>
+          </div>
+
+
+          <!-- Exampleeeeeee -->
+          <hr />
+          <div class="row">
+            <div class="col-md-3">
+              <div class="form-group">
+                <label>*Telefono</label>
+                <input type="number" class="form-control" id="aOperatorTelefono1" placeholder="3001234567" maxLength="10" required>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="form-group">
+                  <label>Telefono 2</label>
+                  <input type="number" class="form-control" id="aOperatorTelefono2" placeholder="0348280000" maxLength="10">
+              </div>
+            </div>
+            <div class="col-md-6"></div>
+          </div>
+          <div class="row">
+            <div class="col-md-3">
+              <div class="form-group">
+                <label>*Reside (Ciudad)</label>
+                <input type="text" class="form-control" id="aOperatorCiudadResidencia" placeholder="Ciudad" maxLength="32" required>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="form-group">
+                <label>*Barrio</label>
+                <input type="text" class="form-control" id="aOperatorBarrio" placeholder="Barrio Central" maxLength="72" required>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label>*Direccion</label>
+                <input type="text" class="form-control" id="aOperatorDireccion" placeholder="Carrera 100 # 100A-00" maxLength="128" required>
+              </div>
+            </div>
+          </div>
+          <input type="hidden" name="_csrf" id="a_csrf" value="<%= _csrf %>" />
+          <div class="col-md-12">
+            <p>* Campos Obligatorios</p>
+          </div>
+          <br>
+      </div>
+
+      <!-- Footer del modal -->
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+        <button type="button" class="btn btn-primary" onclick="Operators.cre()">Agregar Operario</button>
+      </div>
+
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->

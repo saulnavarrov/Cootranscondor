@@ -1,0 +1,111 @@
+<!-- Large modal -->
+<div class="modal fade" id="modalSeeUsers" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+
+      <!-- Header Modal -->
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="gridSystemModalLabel">Datos del Operador</h4>
+      </div>
+
+      <!-- Contenido del modal -->
+      <div class="modal-body">
+        <div class="row">
+          <section class="col-md-4">
+            <div class="box box-primary">
+
+              <!-- Profile imagen -->
+              <section class="box-header with-border text-center">
+                <h3 class="box-title ">Operario</h3>
+              </section>
+              <div class="box-body box-prifile text-center">
+                <img src="/images/user-profile-nn.png" alt="Operador" class="profile-user-img img-responsive img-circle text-center" id="vImgOperator">
+                <br />
+                <h3 class="profile-username" id="vNameComplete"></h3>
+                <hr />
+                <p><strong>Edad: </strong><span id="vEdad"></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>RH: </strong><span id="vRh"></span></p>
+                <hr />
+                <p><strong>Estado Civil: </strong><span id="vEstadoCivil"></span></p>
+                <hr />
+                <p><strong>Sexo: </strong><span id="vSexo"></span></p>
+                <hr />
+                <p><strong>Altura: </strong><span id="vAlto"></span></p>
+                <hr />
+
+                <a href="#" class="btn btn-primary btn-block" id="voEditOperario"><b>Editar</b></a>
+              </div>
+            </div>
+
+
+          </section>
+
+          <!-- profile datos -->
+          <section class="col-md-8">
+            <!-- Datos de identidad -->
+            <section class="box box-primary">
+              <section class="box-header with-border text-left">
+                <h3 class="box-title">Datos de Identidad</h3>
+              </section>
+              <section class="box-body">
+                <pre style="padding: inherit;margin: inherit;font-size: inherit;line-height: inherit;color: black;border: 0px;background: transparent;"><strong>Documento: </strong><span id="vNumeroIdentidad"></span>       <strong>Expedido: </strong><span id="vExpedido"></span></pre>
+              </section>
+            </section>
+
+            <!-- Datos de nacimiento -->
+            <section class="box box-primary">
+              <section class="box-header with-border text-left">
+                <h3 class="box-title">Nacimiento:</h3>
+              </section>
+              <section class="box-body">
+                <pre style="padding: inherit;margin: inherit;font-size: inherit;line-height: inherit;color: black;border: 0px;background: transparent;"><strong>Fecha: </strong><span id="vNacimiento"></span></pre>
+              </section>
+            </section>
+
+            <!-- datos de contacto -->
+            <section class="box box-primary">
+              <section class="box-header with-border text-left">
+                <h3 class="box-title">Conctacto:</h3>
+              </section>
+              <section class="box-body">
+                <pre style="padding: inherit;margin: inherit;font-size: inherit;line-height: inherit;color: black;border: 0px;background: transparent;"><strong>Telefonos: </strong><span id="vTelefonos"></span></pre>
+                <pre style="padding: inherit;margin: inherit;font-size: inherit;line-height: inherit;color: black;border: 0px;background: transparent;"><strong>Dirección: </strong><span id="vDireccion"></span></pre>
+                <pre style="padding: inherit;margin: inherit;font-size: inherit;line-height: inherit;color: black;border: 0px;background: transparent;"><strong>Residencia: </strong><span id="vReside"></span></pre>
+              </section>
+            </section>
+
+            <!-- datos de la licencia -->
+            <section class="box box-primary">
+              <section class="box-header with-border">
+                <section class="col-md-10  text-left">
+                  <h3 class="box-title">Licencia:</h3>
+                </section>
+                <!-- <section class="col-md-2 text-right">
+                  <button type="button" class="text-center btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                    <span class="caret"></span>
+                  </button>
+                  <ul class="dropdown-menu" style="right: 0px; left: inherit;" id="voListLicencias">
+                  </ul>
+                </section> -->
+              </section>
+              <section class="box-body">
+                <pre style="padding: inherit;margin: inherit;font-size: inherit;line-height: inherit;color: black;border: 0px;background: transparent;"><strong>Numero Licencia: </strong><span id="vLicenciaData"></span></pre>
+                <pre style="padding: inherit;margin: inherit;font-size: inherit;line-height: inherit;color: black;border: 0px;background: transparent;"><strong>Categoria A: </strong><span id="vLicenciaDataA"></span></pre>
+                <pre style="padding: inherit;margin: inherit;font-size: inherit;line-height: inherit;color: black;border: 0px;background: transparent;"><strong>Categoria C: </strong><span id="vLicenciaDataB"></span></pre>
+                <pre style="padding: inherit;margin: inherit;font-size: inherit;line-height: inherit;color: black;border: 0px;background: transparent;"><strong>Categoria C: </strong><span id="vLicenciaDataC"></span></pre>
+                <pre style="padding: inherit;margin: inherit;font-size: inherit;line-height: inherit;color: black;border: 0px;background: transparent;"><strong>Restricciones: </strong><span id="vLicenciaDataRest"></span></pre>
+              </section>
+            </section>
+
+          </section>
+        </div>
+      </div>
+
+      <!-- Footer del modal -->
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-dismiss="modal">Cerrar</button>
+      </div>
+
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->

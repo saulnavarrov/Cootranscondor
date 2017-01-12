@@ -17,63 +17,96 @@
       </ol>
     </section> <!-- /. Content Header (Page header) -->
 
-    <section class="content"> <!-- Main content -->
+    <section class="content" style="background-color: #FFF; margin-top: 25px; min-height: 200px"> <!-- Main content -->
 
-      <!-- Your Page Content Here -->
+      <!-- Error page server list -->
+      <section class="row" id="errorList" hidden></section>
 
-      <div class="box">
-        <div class="box-header">
-          <h3 class="box-title">Tabla de Usuarios</h3>
-        </div>
-        <!-- /.box-header -->
-        <div class="box-body">
-          <div id="example1_wrapper" class="dataTables_wrapper form-inline dt-bootstrap">
-            <!-- <div class="row">
-              <div class="col-sm-6">
-                <div class="dataTables_length" id="example1_length">
-                  <label>Show
-                  <select name="example1_length" aria-controls="example1" class="form-control input-sm">
-                    <option value="10">10</option>
-                    <option value="25">25</option>
-                    <option value="50">50</option>
-                    <option value="100">100</option>
-                    </select> entries
-                  </label>
-                </div>
-              </div>
-              <div class="col-sm-6">
-                <div id="example1_filter" class="dataTables_filter">
-                  <label>Search:<input type="search" class="form-control input-sm" placeholder="" aria-controls="example1"></label>
-                </div>
-              </div>
-            </div> -->
-            <div class="row">
-              <div class="col-sm-12">
-                <table id="zonasTaxisList" class="table table-bordered table-striped dataTable" role="grid" aria-describedby="Lista de zonas">
-                  <thead>
-                    <tr role="row">
-                      <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="example" style="width: 65px;">#</th>
-                      <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="example" style="width: 75px;">On</th>
-                      <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="example" style="width: 100px;">Activo</th>
-                      <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="example" style="width: 120px;">Identicación</th>
-                      <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="example" style="width: 256px;">Nombre</th>
-                      <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="example" style="width: 256px;">Apellidos</th>
-                      <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="example" style="width: 200px;">roll</th>
-                      <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="example" style="width: 200px;">Acciones</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                  </tbody>
-                </table>
-              </div>
+      <!-- Searchs -->
+      <section class="row" id="searchList" hidden>
+        <div class="col-md-6"></div>
+        <div class="col-md-6">
+          <div class="input-group input-group-sm  pull-right" style="width: 250px;">
+            <input type="hidden" name="titleSearch" value="numberIdentity">
+            <input type="search" name="textSearh" id="textSearh" class="form-control pull-right" placeholder="Buscar por: Cedula" onkeyup="searchListItems()">
+            <div class="input-group-btn">
+              <button type="submit" class="btn btn-default" id="search"><i class="fa fa-search"></i></button>
             </div>
           </div>
         </div>
-      </div>
+      </section>
+      <br>
+
+      <!-- Tabla list -->
+      <section class="row" id="tableList" hidden>
+        <div class="col-xs-12">
+          <table class="table table-bordered table-responsive table-hover dataTable" id="tableOperatos">
+            <thead>
+              <tr role="row">
+                <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="example" style="width: 65px;">#</th>
+                <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="example" style="width: 75px;">On</th>
+                <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="example" style="width: 100px;">Activo</th>
+                <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="example" style="width: 120px;">Identicación</th>
+                <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="example" style="width: 256px;">Nombre</th>
+                <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="example" style="width: 256px;">Apellidos</th>
+                <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="example" style="width: 200px;">Email</th>
+                <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="example" style="width: 200px;">roll</th>
+                <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="example" style="width: 200px;">Acciones</th>
+              </tr>
+            </thead>
+            <tbody>
+              <!-- Contenido de las tablas -->
+            </tbody>
+          </table>
+        </div>
+      </section>
+      <br>
+
+      <!-- Si no hay nada en la lista mostrar que no hay en la lista -->
+      <section class="row" id="listCero" hidden></section>
+
+      <!-- Paginations list -->
+      <section class="row" id="paginations" hidden>
+        <div class="col-xs-6">
+          <ul class="pagination" id="pagNum"></ul>
+        </div>
+        <div class="col-xs-6">
+          <div class="pull-right pagination">
+            <label style="display: inline-flex;line-height: 30px;">Ver&nbsp;&nbsp;
+              <select id="limitItemsPag" class="form-control input-sm" onchange="Operators.limPagRes()">
+                <option value="5">&nbsp;5&nbsp;</option>
+                <option value="20" selected>&nbsp;20&nbsp;</option>
+                <option value="50">&nbsp;50&nbsp;</option>
+              </select>&nbsp;&nbsp;Paginas
+            </label>
+          </div>
+        </div>
+      </section>
+
+      <!-- Loader List -->
+      <section class="row" id="loadersList">
+        <div class="col-xs-12">
+          <h3 class="text-center">Cargando...</h3>
+          <div class="progress progress-striped active page-progress-bar">
+            <div class="progress-bar" style="width: 100%;"></div>
+          </div>
+        </div>
+      </section>
 
       <button type="button" class="btn btn-fab btn-success btn-lg" data-toggle="tooltip" data-placement="left" title="Añadir Nuevo Usuario" style="position: absolute;right: 25px;bottom: 75px;border-radius: 50%;">
         <i class="fa fa-plus"></i>
         <div class="add-user"></div>
+      </button>
+
+      <!-- Partiales  -->
+      <%- partial ('p/add') %>
+      <%- partial ('p/edit') %>
+      <%- partial ('p/see') %>
+
+      <!-- Boton para agregar nuevo -->
+      <button type="button" class="btn btn-fab btn-success btn-lg btn-float" data-toggle="modal" data-target="#modalAddForm" data-placement="left" title="Añadir Nuevos Usuarios">
+        <i class="fa fa-plus"></i>
+        <div class="add"></div>
       </button>
 
     </section> <!-- /.content -->
