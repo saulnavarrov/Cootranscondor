@@ -22,7 +22,7 @@ module.exports = {
     },
     roll: {
       type: 'Integer',
-      enum: [0,1,2,3],
+      enum: [0,1,2],
       required: true,
     },
     active: {
@@ -47,6 +47,12 @@ module.exports = {
       type: 'Boolean',
       defaultTo: false
     },
+
+    email: {
+      type: 'String',
+      maxLength: 64,
+      required:true,
+    }
 
   }
 };
